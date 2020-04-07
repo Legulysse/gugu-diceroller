@@ -1,0 +1,3 @@
+[submodule "GuguEngine"]
+	path = GuguEngine
+	url = https://github.com/Legulysse/gugu-engine.git
