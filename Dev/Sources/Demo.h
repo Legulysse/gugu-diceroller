@@ -29,6 +29,27 @@ protected:
     {
         Quit,
         Roll,
+        Clear,
+        AddDice6,
+        AddDice12,
+        AddDice20,
+    };
+
+    enum class EDiceType
+    {
+        undefined,
+        d6,
+        d12,
+        d20,
+    };
+
+    struct Dice
+    {
+        EDiceType type = EDiceType::undefined;
+        gugu::ElementSpriteAnimated* sprite = nullptr;
+        gugu::ElementText* resultText = nullptr;
+        int result = 0;
+        int animationTime = 0;
     };
 
 public:
@@ -39,19 +60,26 @@ public:
     virtual void AppStart() override;
     virtual void AppStop() override;
 
-    virtual void AppStep(const gugu::DeltaTime& dt) override;
+    virtual void AppUpdate(const gugu::DeltaTime& dt) override;
 
 protected:
 
-    void Test();
     void SetupStandard();
+
+    void ClearDices();
+    void PrepareDices(EDiceType type, int count);
+    void AddDice(EDiceType type);
+    void Roll();
 
     void OnButtonClick(EButton button);
 
 protected:
 
-    gugu::Element* m_root;
-    gugu::ElementText* m_textResult;
+    gugu::Element* m_root = nullptr;
+    gugu::ElementText* m_textResult = nullptr;
+
+    std::vector<Dice> m_currentDices;
+    bool m_rolling = false;
 };
 
 }   //namespace demoproject
