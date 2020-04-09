@@ -13,7 +13,6 @@
 		<Frame Texture="dice20_00009.png" Duration="0.045" Events="" />
 		<Frame Texture="dice20_00010.png" Duration="0.045" Events="" />
 		<Frame Texture="dice20_00011.png" Duration="0.045" Events="" />
-		<Frame Texture="dice20_00012.png" Duration="0.045" Events="" />
 	</Animation>
 	<Animation Name="idle">
 		<Frame Texture="dice20_00000.png" Duration="0.045" Events="" />

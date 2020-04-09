@@ -120,6 +120,8 @@ void Demo::ClearDices()
     }
 
     m_currentDices.clear();
+
+    m_textResult->SetText("");
 }
 
 void Demo::AddDice(EDiceType type)
@@ -141,7 +143,7 @@ void Demo::AddDice(EDiceType type)
 
     ElementSpriteAnimated* sprite = m_root->AddChild<ElementSpriteAnimated>();
     sprite->SetPosition(index * 95.f + 50.f, 120.f);
-    sprite->SetScale(0.15f);
+    sprite->SetScale(0.6f);
     sprite->SetUnifiedOrigin(UDim2::POSITION_CENTER);
     sprite->ChangeAnimSet(animset);
     sprite->StartAnimation("idle");
