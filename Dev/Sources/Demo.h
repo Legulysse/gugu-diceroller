@@ -13,6 +13,7 @@ namespace gugu
 {
     class Element;
     class ElementText;
+    class ElementButton;
     class ElementSpriteAnimated;
 }
 
@@ -48,6 +49,7 @@ protected:
         EDiceType type = EDiceType::undefined;
         gugu::ElementSpriteAnimated* sprite = nullptr;
         gugu::ElementText* resultText = nullptr;
+        gugu::ElementButton* buttonReroll = nullptr;
         int result = 0;
         int animationTime = 0;
     };
@@ -69,9 +71,12 @@ protected:
     void ClearDices();
     void PrepareDices(EDiceType type, int count);
     void AddDice(EDiceType type);
-    void Roll();
+    void RollAllDices();
+    void RerollDice(int index);
+    void RollSingleDice(int index, bool delay);
 
     void OnButtonClick(EButton button);
+    void OnReroll(int index);
 
 protected:
 

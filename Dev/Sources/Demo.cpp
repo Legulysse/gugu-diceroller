@@ -117,6 +117,7 @@ void Demo::ClearDices()
     {
         SafeDelete(m_currentDices[i].sprite);
         SafeDelete(m_currentDices[i].resultText);
+        SafeDelete(m_currentDices[i].buttonReroll);
     }
 
     m_currentDices.clear();
@@ -156,6 +157,17 @@ void Demo::AddDice(EDiceType type)
     resultText->SetUnifiedOrigin(UDim2::POSITION_CENTER);
     dice.resultText = resultText;
 
+    ElementButton* buttonReroll = m_root->AddChild<ElementButton>();
+    buttonReroll->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonReroll->GetElementText()->SetFontSize(25);
+    buttonReroll->SetText("Reroll");
+    buttonReroll->SetUnifiedOrigin(UDim2::POSITION_CENTER);
+    buttonReroll->SetPosition(index * 95.f + 50.f, 250.f);
+    buttonReroll->SetSize(sf::Vector2f(90.f, 40.f));
+    buttonReroll->SetOnMouseReleased(new ActionClass1P<Demo, int>(this, &Demo::OnReroll, index));
+    buttonReroll->SetVisible(false);
+    dice.buttonReroll = buttonReroll;
+
     m_currentDices.push_back(dice);
 }
 
@@ -169,30 +181,43 @@ void Demo::PrepareDices(EDiceType type, int count)
     }
 }
 
-void Demo::Roll()
+void Demo::RollAllDices()
 {
-    m_textResult->SetText("");
-
     for (int i = 0; i < (int)m_currentDices.size(); ++i)
     {
-        int max = 6;
-
-        if (m_currentDices[i].type == EDiceType::d12)
-        {
-            max = 12;
-        }
-        else if (m_currentDices[i].type == EDiceType::d20)
-        {
-            max = 20;
-        }
-
-        m_currentDices[i].animationTime = 700 + i * 300;
-        m_currentDices[i].result = GetRandom(1, max);
-        m_currentDices[i].sprite->StartAnimation("roll");
-        m_currentDices[i].resultText->SetText("");
+        RollSingleDice(i, true);
     }
 
+    m_textResult->SetText("");
     m_rolling = true;
+}
+
+void Demo::RerollDice(int index)
+{
+    RollSingleDice(index, false);
+
+    m_textResult->SetText("");
+    m_rolling = true;
+}
+
+void Demo::RollSingleDice(int index, bool delay)
+{
+    int max = 6;
+
+    if (m_currentDices[index].type == EDiceType::d12)
+    {
+        max = 12;
+    }
+    else if (m_currentDices[index].type == EDiceType::d20)
+    {
+        max = 20;
+    }
+
+    m_currentDices[index].animationTime = (delay) ? 700 + index * 300 : 500;
+    m_currentDices[index].result = GetRandom(index, max);
+    m_currentDices[index].sprite->StartAnimation("roll");
+    m_currentDices[index].buttonReroll->SetVisible(false);
+    m_currentDices[index].resultText->SetText("");
 }
 
 void Demo::AppUpdate(const DeltaTime& dt)
@@ -211,6 +236,7 @@ void Demo::AppUpdate(const DeltaTime& dt)
                 {
                     m_currentDices[i].sprite->StartAnimation("idle");
                     m_currentDices[i].resultText->SetText(ToString(m_currentDices[i].result));
+                    m_currentDices[i].buttonReroll->SetVisible(true);
                 }
                 else
                 {
@@ -238,7 +264,7 @@ void Demo::OnButtonClick(EButton button)
 {
     if (button == EButton::Roll)
     {
-        Roll();
+        RollAllDices();
     }
     else if (button == EButton::Clear)
     {
@@ -256,6 +282,11 @@ void Demo::OnButtonClick(EButton button)
     {
         AddDice(EDiceType::d20);
     }
+}
+
+void Demo::OnReroll(int index)
+{
+    RerollDice(index);
 }
 
 }   //namespace demoproject
