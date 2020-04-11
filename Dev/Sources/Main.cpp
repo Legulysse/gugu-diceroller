@@ -5,6 +5,7 @@
 #include "Demo.h"
 
 #include "Gugu/Engine.h"
+#include "Gugu/Manager/ManagerResources.h"
 
 #if defined(GUGU_ENV_VISUAL )
 
@@ -42,6 +43,7 @@ int main(int argc, char* argv[])
     //--------
 
     GetEngine()->SetApplication(new Demo);
+    GetResources()->PreloadAll();
 
     //--------
 
