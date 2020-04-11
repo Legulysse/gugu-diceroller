@@ -15,6 +15,6 @@
 		<Frame Texture="dice12_00011.png" Duration="0.045" Events="" />
 	</Animation>
 	<Animation Name="idle">
-		<Frame Texture="dice12_00000.png" Duration="0.045" Events="" />
+		<Frame Texture="dice12_00012.png" Duration="0.045" Events="" />
 	</Animation>
 </AnimSet>
