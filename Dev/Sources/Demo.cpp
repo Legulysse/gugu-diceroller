@@ -239,8 +239,9 @@ void Demo::RollSingleDice(int index, bool delay)
         max = 20;
     }
 
+    m_currentDices[index].result = GetRandom(1, max);
+
     m_currentDices[index].animationTime = (delay) ? 400 + index * 200 : 400;
-    m_currentDices[index].result = GetRandom(index, max);
     m_currentDices[index].sprite->StartAnimation("roll");
     m_currentDices[index].buttonReroll->SetVisible(false);
     m_currentDices[index].resultText->SetText("");
