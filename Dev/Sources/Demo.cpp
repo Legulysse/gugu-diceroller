@@ -93,6 +93,16 @@ void Demo::SetupStandard()
     buttonAddDice20->SetSize(buttonSize);
     buttonAddDice20->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice20));
 
+    // Remove dice
+    ElementButton* buttonRemoveDice = m_root->AddChild<ElementButton>();
+    buttonRemoveDice->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonRemoveDice->GetElementText()->SetFontSize(30);
+    buttonRemoveDice->SetText("- 1d");
+    buttonRemoveDice->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
+    buttonRemoveDice->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + buttonOffset + sf::Vector2f(600, 0));
+    buttonRemoveDice->SetSize(buttonSize);
+    buttonRemoveDice->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::RemoveDice));
+
     // Roll button
     ElementButton* buttonRoll = m_root->AddChild<ElementButton>();
     buttonRoll->SetTexture("ButtonNormal.png", "ButtonFocused.png");
@@ -115,14 +125,19 @@ void Demo::ClearDices()
 {
     for (int i = 0; i < (int)m_currentDices.size(); ++i)
     {
-        SafeDelete(m_currentDices[i].sprite);
-        SafeDelete(m_currentDices[i].resultText);
-        SafeDelete(m_currentDices[i].buttonReroll);
+        ClearSingleDice(i);
     }
 
     m_currentDices.clear();
 
     m_textResult->SetText("");
+}
+
+void Demo::ClearSingleDice(int index)
+{
+    SafeDelete(m_currentDices[index].sprite);
+    SafeDelete(m_currentDices[index].resultText);
+    SafeDelete(m_currentDices[index].buttonReroll);
 }
 
 void Demo::AddDice(EDiceType type)
@@ -169,6 +184,17 @@ void Demo::AddDice(EDiceType type)
     dice.buttonReroll = buttonReroll;
 
     m_currentDices.push_back(dice);
+}
+
+void Demo::RemoveDice()
+{
+    if (!m_currentDices.empty())
+    {
+        int index = m_currentDices.size() - 1;
+        ClearSingleDice(index);
+
+        StdVectorRemoveAt(m_currentDices, index);
+    }
 }
 
 void Demo::PrepareDices(EDiceType type, int count)
@@ -281,6 +307,10 @@ void Demo::OnButtonClick(EButton button)
     else if (button == EButton::AddDice20)
     {
         AddDice(EDiceType::d20);
+    }
+    else if (button == EButton::RemoveDice)
+    {
+        RemoveDice();
     }
 }
 

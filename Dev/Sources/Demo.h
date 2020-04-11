@@ -34,6 +34,7 @@ protected:
         AddDice6,
         AddDice12,
         AddDice20,
+        RemoveDice,
     };
 
     enum class EDiceType
@@ -71,6 +72,8 @@ protected:
     void ClearDices();
     void PrepareDices(EDiceType type, int count);
     void AddDice(EDiceType type);
+    void RemoveDice();
+    void ClearSingleDice(int index);
     void RollAllDices();
     void RerollDice(int index);
     void RollSingleDice(int index, bool delay);
