@@ -40,6 +40,14 @@ void Demo::AppStart()
     m_root = GetGameWindow()->GetUINode()->AddChild<Element>();
     m_root->SetUnifiedSize(UDim2(UDim(1.f, 0.f), UDim(1.f, 0.f)));
 
+    // Background
+    ElementSprite* spriteBackground = m_root->AddChild<ElementSprite>();
+    spriteBackground->SetTexture("SuchRoll.png");
+    spriteBackground->SetUnifiedPosition(UDim2::POSITION_BOTTOM_RIGHT + sf::Vector2f(100.f, 20.f));
+    spriteBackground->SetScale(0.5f);
+    spriteBackground->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_RIGHT);
+    spriteBackground->SetColor(sf::Color(255,255,255,255));
+
     SetupStandard();
 }
 
@@ -109,7 +117,7 @@ void Demo::SetupStandard()
     buttonRoll->GetElementText()->SetFontSize(30);
     buttonRoll->SetText("Roll !");
     buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
-    buttonRoll->SetUnifiedPosition(UDim2::POSITION_BOTTOM_CENTER + sf::Vector2f(0, -20));
+    buttonRoll->SetUnifiedPosition(UDim2(0.f, 200.f, 1.f, -20.f));
     buttonRoll->SetSize(buttonSize);
     buttonRoll->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::Roll));
 
@@ -118,7 +126,7 @@ void Demo::SetupStandard()
     m_textResult->SetFontSize(40);
     m_textResult->SetText("");
     m_textResult->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
-    m_textResult->SetUnifiedPosition(UDim2::POSITION_BOTTOM_CENTER + sf::Vector2f(0, -100));
+    m_textResult->SetUnifiedPosition(UDim2(0.f, 200.f, 1.f, -100.f));
 }
 
 void Demo::ClearDices()

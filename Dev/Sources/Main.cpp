@@ -35,8 +35,9 @@ int main(int argc, char* argv[])
     config.pathAssets = "Assets";
     config.defaultFont = "Roboto-Regular.ttf"; // Spaceranger  Roboto-Regular  
     config.debugFont = "Roboto-Regular.ttf";
-    config.windowWidth = 750;
-    config.windowHeight = 500;
+    config.windowWidth = 1024;
+    config.windowHeight = 520;
+    config.backgroundColor = sf::Color(232, 232, 232);
 
     GetEngine()->Init(config);
 
