@@ -16,6 +16,8 @@
 #include "Gugu/Utility/System.h"
 #include "Gugu/Utility/Random.h"
 
+#include <SFML/Window/Clipboard.hpp>
+
 using namespace gugu;
 
 ////////////////////////////////////////////////////////////////
@@ -285,12 +287,22 @@ void Demo::AppUpdate(const DeltaTime& dt)
         if (!m_rolling)
         {
             int total = 0;
+            std::string dicesResults = "";
             for (int i = 0; i < (int)m_currentDices.size(); ++i)
             {
                 total += m_currentDices[i].result;
+
+                if (i > 0)
+                {
+                    dicesResults += " | ";
+                }
+                
+                dicesResults += ToString(m_currentDices[i].result);
             }
 
             m_textResult->SetText(ToString(total));
+
+            sf::Clipboard::setString(StringFormat("Roll score: {0} - dices: {1}", total, dicesResults));
         }
     }
 }
