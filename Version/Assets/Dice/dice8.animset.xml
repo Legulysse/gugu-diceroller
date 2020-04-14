@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<AnimSet ImageSet="">
+	<Animation Name="roll">
+		<Frame Texture="dice8_00000.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00001.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00002.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00003.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00004.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00005.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00006.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00007.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00008.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00009.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00010.png" Duration="0.025" Events="" />
+		<Frame Texture="dice8_00011.png" Duration="0.025" Events="" />
+	</Animation>
+	<Animation Name="idle">
+		<Frame Texture="dice8_00012.png" Duration="0.035" Events="" />
+	</Animation>
+</AnimSet>

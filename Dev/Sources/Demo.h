@@ -31,7 +31,10 @@ protected:
         Quit,
         Roll,
         Clear,
+        AddDice4,
         AddDice6,
+        AddDice8,
+        AddDice10,
         AddDice12,
         AddDice20,
         RemoveDice,
@@ -40,7 +43,10 @@ protected:
     enum class EDiceType
     {
         undefined,
+        d4,
         d6,
+        d8,
+        d10,
         d12,
         d20,
     };

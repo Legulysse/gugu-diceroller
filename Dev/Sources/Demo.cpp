@@ -83,6 +83,16 @@ void Demo::SetupStandard()
     buttonAddDice6->SetSize(buttonSize);
     buttonAddDice6->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice6));
 
+    // Dice 4 button
+    ElementButton* buttonAddDice4 = m_root->AddChild<ElementButton>();
+    buttonAddDice4->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice4->GetElementText()->SetFontSize(30);
+    buttonAddDice4->SetText("+ 1d4");
+    buttonAddDice4->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
+    buttonAddDice4->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + buttonOffset + sf::Vector2f(150, 50));
+    buttonAddDice4->SetSize(buttonSize);
+    buttonAddDice4->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice4));
+
     // Dice 12 button
     ElementButton* buttonAddDice12 = m_root->AddChild<ElementButton>();
     buttonAddDice12->SetTexture("ButtonNormal.png", "ButtonFocused.png");
@@ -93,6 +103,16 @@ void Demo::SetupStandard()
     buttonAddDice12->SetSize(buttonSize);
     buttonAddDice12->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice12));
 
+    // Dice 8 button
+    ElementButton* buttonAddDice8 = m_root->AddChild<ElementButton>();
+    buttonAddDice8->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice8->GetElementText()->SetFontSize(30);
+    buttonAddDice8->SetText("+ 1d8");
+    buttonAddDice8->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
+    buttonAddDice8->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + buttonOffset + sf::Vector2f(300, 50));
+    buttonAddDice8->SetSize(buttonSize);
+    buttonAddDice8->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice8));
+
     // Dice 20 button
     ElementButton* buttonAddDice20 = m_root->AddChild<ElementButton>();
     buttonAddDice20->SetTexture("ButtonNormal.png", "ButtonFocused.png");
@@ -102,6 +122,16 @@ void Demo::SetupStandard()
     buttonAddDice20->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + buttonOffset + sf::Vector2f(450, 0));
     buttonAddDice20->SetSize(buttonSize);
     buttonAddDice20->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice20));
+
+    // Dice 10 button
+    ElementButton* buttonAddDice10 = m_root->AddChild<ElementButton>();
+    buttonAddDice10->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice10->GetElementText()->SetFontSize(30);
+    buttonAddDice10->SetText("+ 1d10");
+    buttonAddDice10->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
+    buttonAddDice10->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + buttonOffset + sf::Vector2f(450, 50));
+    buttonAddDice10->SetSize(buttonSize);
+    buttonAddDice10->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice10));
 
     // Remove dice
     ElementButton* buttonRemoveDice = m_root->AddChild<ElementButton>();
@@ -158,7 +188,20 @@ void Demo::AddDice(EDiceType type)
     dice.type = type;
 
     std::string animset = "dice6.animset.xml";
-    if (type == EDiceType::d12)
+
+    if (type == EDiceType::d4)
+    {
+        animset = "dice4.animset.xml";
+    }
+    else if (type == EDiceType::d8)
+    {
+        animset = "dice8.animset.xml";
+    }
+    else if (type == EDiceType::d10)
+    {
+        animset = "dice10.animset.xml";
+    }
+    else if (type == EDiceType::d12)
     {
         animset = "dice12.animset.xml";
     }
@@ -240,7 +283,19 @@ void Demo::RollSingleDice(int index, bool delay)
 {
     int max = 6;
 
-    if (m_currentDices[index].type == EDiceType::d12)
+    if (m_currentDices[index].type == EDiceType::d4)
+    {
+        max = 4;
+    }
+    else if (m_currentDices[index].type == EDiceType::d8)
+    {
+        max = 8;
+    }
+    else if (m_currentDices[index].type == EDiceType::d10)
+    {
+        max = 10;
+    }
+    else if (m_currentDices[index].type == EDiceType::d12)
     {
         max = 12;
     }
@@ -317,9 +372,21 @@ void Demo::OnButtonClick(EButton button)
     {
         ClearDices();
     }
+    else if (button == EButton::AddDice4)
+    {
+        AddDice(EDiceType::d4);
+    }
     else if (button == EButton::AddDice6)
     {
         AddDice(EDiceType::d6);
+    }
+    else if (button == EButton::AddDice8)
+    {
+        AddDice(EDiceType::d8);
+    }
+    else if (button == EButton::AddDice10)
+    {
+        AddDice(EDiceType::d10);
     }
     else if (button == EButton::AddDice12)
     {
