@@ -74,7 +74,7 @@ void Demo::SetupStandard()
     buttonClear->SetSize(buttonSize);
     buttonClear->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::Clear));
 
-    diceButtonPosition += sf::Vector2f(0, 75);
+    diceButtonPosition += sf::Vector2f(0, 65);
 
     // Dice 4 button
     ElementButton* buttonAddDice4 = m_root->AddChild<ElementButton>();
@@ -145,6 +145,18 @@ void Demo::SetupStandard()
     buttonAddDice20->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice20->SetSize(buttonSize);
     buttonAddDice20->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice20));
+
+    diceButtonPosition += diceButtonOffset;
+
+    // Dice 100 button
+    ElementButton* buttonAddDice100 = m_root->AddChild<ElementButton>();
+    buttonAddDice100->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice100->GetElementText()->SetFontSize(30);
+    buttonAddDice100->SetText("+ 1d100");
+    buttonAddDice100->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
+    buttonAddDice100->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
+    buttonAddDice100->SetSize(buttonSize);
+    buttonAddDice100->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice100));
 
     diceButtonPosition += sf::Vector2f(0, 65);
 
@@ -224,6 +236,10 @@ void Demo::AddDice(EDiceType type)
     {
         animset = "dice20.animset.xml";
     }
+    else if (type == EDiceType::d100)
+    {
+        animset = "dice10.animset.xml";
+    }
 
     sf::Vector2f basePosition = sf::Vector2f(index * 95 + 220, 50);
 
@@ -298,6 +314,7 @@ void Demo::RerollDice(int index)
 
 void Demo::RollSingleDice(int index, bool delay)
 {
+    int min = 1;
     int max = 6;
 
     if (m_currentDices[index].type == EDiceType::d4)
@@ -320,8 +337,12 @@ void Demo::RollSingleDice(int index, bool delay)
     {
         max = 20;
     }
+    else if (m_currentDices[index].type == EDiceType::d100)
+    {
+        max = 100;
+    }
 
-    m_currentDices[index].result = GetRandom(1, max);
+    m_currentDices[index].result = GetRandom(min, max);
 
     m_currentDices[index].animationTime = (delay) ? 400 + index * 200 : 400;
     m_currentDices[index].sprite->StartAnimation("roll");
@@ -344,8 +365,8 @@ void Demo::AppUpdate(const DeltaTime& dt)
                 if (m_currentDices[i].animationTime <= 0)
                 {
                     m_currentDices[i].sprite->StartAnimation("idle");
-                    m_currentDices[i].resultText->SetText(ToString(m_currentDices[i].result));
                     m_currentDices[i].buttonReroll->SetVisible(true);
+                    m_currentDices[i].resultText->SetText(ToString(m_currentDices[i].result));
                 }
                 else
                 {
@@ -412,6 +433,10 @@ void Demo::OnButtonClick(EButton button)
     else if (button == EButton::AddDice20)
     {
         AddDice(EDiceType::d20);
+    }
+    else if (button == EButton::AddDice100)
+    {
+        AddDice(EDiceType::d100);
     }
     else if (button == EButton::RemoveDice)
     {

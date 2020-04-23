@@ -37,6 +37,7 @@ protected:
         AddDice10,
         AddDice12,
         AddDice20,
+        AddDice100,
         RemoveDice,
     };
 
@@ -49,6 +50,7 @@ protected:
         d10,
         d12,
         d20,
+        d100,
     };
 
     struct Dice
@@ -80,6 +82,7 @@ protected:
     void AddDice(EDiceType type);
     void RemoveDice();
     void ClearSingleDice(int index);
+
     void RollAllDices();
     void RerollDice(int index);
     void RollSingleDice(int index, bool delay);
