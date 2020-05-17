@@ -67,7 +67,7 @@ void Demo::SetupStandard()
 
     // Clear button
     ElementButton* buttonClear = m_root->AddChild<ElementButton>();
-    buttonClear->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonClear->SetTexture("cadre.png", "cadre2.png");
     buttonClear->GetElementText()->SetFontSize(30);
     buttonClear->SetText("Clear");
     buttonClear->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -79,7 +79,7 @@ void Demo::SetupStandard()
 
     // Dice 4 button
     ElementButton* buttonAddDice4 = m_root->AddChild<ElementButton>();
-    buttonAddDice4->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice4->SetTexture("cadre.png", "cadre2.png");
     buttonAddDice4->GetElementText()->SetFontSize(30);
     buttonAddDice4->SetText("+ 1d4");
     buttonAddDice4->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -91,7 +91,7 @@ void Demo::SetupStandard()
 
     // Dice 6 button
     ElementButton* buttonAddDice6 = m_root->AddChild<ElementButton>();
-    buttonAddDice6->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice6->SetTexture("cadre.png", "cadre2.png");
     buttonAddDice6->GetElementText()->SetFontSize(30);
     buttonAddDice6->SetText("+ 1d6");
     buttonAddDice6->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -103,7 +103,7 @@ void Demo::SetupStandard()
 
     // Dice 8 button
     ElementButton* buttonAddDice8 = m_root->AddChild<ElementButton>();
-    buttonAddDice8->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice8->SetTexture("cadre.png", "cadre2.png");
     buttonAddDice8->GetElementText()->SetFontSize(30);
     buttonAddDice8->SetText("+ 1d8");
     buttonAddDice8->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -115,7 +115,7 @@ void Demo::SetupStandard()
 
     // Dice 10 button
     ElementButton* buttonAddDice10 = m_root->AddChild<ElementButton>();
-    buttonAddDice10->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice10->SetTexture("cadre.png", "cadre2.png");
     buttonAddDice10->GetElementText()->SetFontSize(30);
     buttonAddDice10->SetText("+ 1d10");
     buttonAddDice10->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -127,7 +127,7 @@ void Demo::SetupStandard()
 
     // Dice 12 button
     ElementButton* buttonAddDice12 = m_root->AddChild<ElementButton>();
-    buttonAddDice12->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice12->SetTexture("cadre.png", "cadre2.png");
     buttonAddDice12->GetElementText()->SetFontSize(30);
     buttonAddDice12->SetText("+ 1d12");
     buttonAddDice12->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -139,7 +139,7 @@ void Demo::SetupStandard()
 
     // Dice 20 button
     ElementButton* buttonAddDice20 = m_root->AddChild<ElementButton>();
-    buttonAddDice20->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice20->SetTexture("cadre.png", "cadre2.png");
     buttonAddDice20->GetElementText()->SetFontSize(30);
     buttonAddDice20->SetText("+ 1d20");
     buttonAddDice20->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -151,7 +151,7 @@ void Demo::SetupStandard()
 
     // Dice 100 button
     ElementButton* buttonAddDice100 = m_root->AddChild<ElementButton>();
-    buttonAddDice100->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonAddDice100->SetTexture("cadre.png", "cadre2.png");
     buttonAddDice100->GetElementText()->SetFontSize(30);
     buttonAddDice100->SetText("+ 1d100");
     buttonAddDice100->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -163,7 +163,7 @@ void Demo::SetupStandard()
 
     // Remove dice
     ElementButton* buttonRemoveDice = m_root->AddChild<ElementButton>();
-    buttonRemoveDice->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonRemoveDice->SetTexture("cadre.png", "cadre2.png");
     buttonRemoveDice->GetElementText()->SetFontSize(30);
     buttonRemoveDice->SetText("- 1d");
     buttonRemoveDice->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
@@ -173,7 +173,7 @@ void Demo::SetupStandard()
 
     // Roll button
     ElementButton* buttonRoll = m_root->AddChild<ElementButton>();
-    buttonRoll->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonRoll->SetTexture("cadre.png", "cadre2.png");
     buttonRoll->GetElementText()->SetFontSize(30);
     buttonRoll->SetText("Roll !");
     buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
@@ -260,7 +260,7 @@ void Demo::AddDice(EDiceType type)
     dice.resultText = resultText;
 
     ElementButton* buttonReroll = m_root->AddChild<ElementButton>();
-    buttonReroll->SetTexture("ButtonNormal.png", "ButtonFocused.png");
+    buttonReroll->SetTexture("cadre.png", "cadre2.png");
     buttonReroll->GetElementText()->SetFontSize(25);
     buttonReroll->SetText("Reroll");
     buttonReroll->SetUnifiedOrigin(UDim2::POSITION_CENTER);
