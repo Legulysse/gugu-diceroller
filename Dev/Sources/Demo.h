@@ -14,6 +14,7 @@ namespace gugu
     class Element;
     class ElementText;
     class ElementButton;
+    class ElementSprite;
     class ElementSpriteAnimated;
 }
 
@@ -93,10 +94,15 @@ protected:
 protected:
 
     gugu::Element* m_root = nullptr;
+    gugu::ElementSprite* m_spriteBackground = nullptr;
     gugu::ElementText* m_textResult = nullptr;
 
     std::vector<Dice> m_currentDices;
     bool m_rolling = false;
+
+    bool m_animatingBackground = false;
+    int m_animationStep = 0;
+    int m_animationTime = 0;
 };
 
 }   //namespace demoproject

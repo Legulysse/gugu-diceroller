@@ -49,6 +49,7 @@ void Demo::AppStart()
     spriteBackground->SetScale(0.5f);
     spriteBackground->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_RIGHT);
     spriteBackground->SetColor(sf::Color(255,255,255,255));
+    m_spriteBackground = spriteBackground;
 
     SetupStandard();
 }
@@ -241,7 +242,7 @@ void Demo::AddDice(EDiceType type)
         animset = "dice10.animset.xml";
     }
 
-    sf::Vector2f basePosition = sf::Vector2f(index * 95 + 220, 50);
+    sf::Vector2f basePosition = sf::Vector2f(index * 95.f + 220.f, 50.f);
 
     ElementSpriteAnimated* sprite = m_root->AddChild<ElementSpriteAnimated>();
     sprite->SetPosition(basePosition);
@@ -396,6 +397,41 @@ void Demo::AppUpdate(const DeltaTime& dt)
             m_textResult->SetText(ToString(total));
 
             sf::Clipboard::setString(StringFormat("Roll score: {0} - dices: {1}", total, dicesResults));
+
+            // Animate background
+            if (!m_animatingBackground)
+            {
+                m_animatingBackground = true;
+                m_animationStep = 0;
+                m_animationTime = 0;
+            }
+        }
+    }
+
+    if (m_animatingBackground)
+    {
+        m_animationTime += dt.ms();
+
+        int warmupTime = 300;
+        int blinkTime = 250;
+
+        if (m_animationStep == 0 && m_animationTime >= warmupTime)
+        {
+            m_spriteBackground->SetTexture("SuchRoll2.png");
+            ++m_animationStep;
+        }
+
+        if (m_animationStep == 1 && m_animationTime >= warmupTime + blinkTime)
+        {
+            m_spriteBackground->SetTexture("SuchRoll.png");
+            ++m_animationStep;
+        }
+
+        if (m_animationStep == 2)
+        {
+            m_animatingBackground = false;
+            m_animationStep = 0;
+            m_animationTime = 0;
         }
     }
 }
