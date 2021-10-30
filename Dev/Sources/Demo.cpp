@@ -8,13 +8,14 @@
 // Includes
 
 #include "Gugu/Window/Window.h"
+#include "Gugu/Animation/ManagerAnimations.h"
+#include "Gugu/Animation/SpriteAnimation.h"
 #include "Gugu/Element/2D/ElementSprite.h"
-#include "Gugu/Element/2D/ElementSpriteAnimated.h"
 #include "Gugu/Element/2D/ElementSFDrawable.h"
 #include "Gugu/Element/2D/ElementText.h"
 #include "Gugu/Element/UI/ElementButton.h"
-#include "Gugu/Utility/System.h"
-#include "Gugu/Utility/Random.h"
+#include "Gugu/System/SystemUtility.h"
+#include "Gugu/math/Random.h"
 
 #include <SFML/Window/Clipboard.hpp>
 
@@ -73,7 +74,7 @@ void Demo::SetupStandard()
     buttonClear->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonClear->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonClear->SetSize(buttonSize);
-    buttonClear->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::Clear));
+    buttonClear->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::Clear));
 
     diceButtonPosition += sf::Vector2f(0, 65);
 
@@ -85,7 +86,7 @@ void Demo::SetupStandard()
     buttonAddDice4->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonAddDice4->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice4->SetSize(buttonSize);
-    buttonAddDice4->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice4));
+    buttonAddDice4->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice4));
 
     diceButtonPosition += diceButtonOffset;
 
@@ -97,7 +98,7 @@ void Demo::SetupStandard()
     buttonAddDice6->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonAddDice6->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice6->SetSize(buttonSize);
-    buttonAddDice6->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice6));
+    buttonAddDice6->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice6));
 
     diceButtonPosition += diceButtonOffset;
 
@@ -109,7 +110,7 @@ void Demo::SetupStandard()
     buttonAddDice8->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonAddDice8->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice8->SetSize(buttonSize);
-    buttonAddDice8->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice8));
+    buttonAddDice8->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice8));
 
     diceButtonPosition += diceButtonOffset;
 
@@ -121,7 +122,7 @@ void Demo::SetupStandard()
     buttonAddDice10->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonAddDice10->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice10->SetSize(buttonSize);
-    buttonAddDice10->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice10));
+    buttonAddDice10->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice10));
 
     diceButtonPosition += diceButtonOffset;
 
@@ -133,7 +134,7 @@ void Demo::SetupStandard()
     buttonAddDice12->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonAddDice12->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice12->SetSize(buttonSize);
-    buttonAddDice12->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice12));
+    buttonAddDice12->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice12));
 
     diceButtonPosition += diceButtonOffset;
 
@@ -145,7 +146,7 @@ void Demo::SetupStandard()
     buttonAddDice20->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonAddDice20->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice20->SetSize(buttonSize);
-    buttonAddDice20->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice20));
+    buttonAddDice20->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice20));
 
     diceButtonPosition += diceButtonOffset;
 
@@ -157,7 +158,7 @@ void Demo::SetupStandard()
     buttonAddDice100->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonAddDice100->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonAddDice100->SetSize(buttonSize);
-    buttonAddDice100->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::AddDice100));
+    buttonAddDice100->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice100));
 
     diceButtonPosition += sf::Vector2f(0, 65);
 
@@ -169,7 +170,7 @@ void Demo::SetupStandard()
     buttonRemoveDice->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
     buttonRemoveDice->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
     buttonRemoveDice->SetSize(buttonSize);
-    buttonRemoveDice->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::RemoveDice));
+    buttonRemoveDice->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::RemoveDice));
 
     // Roll button
     ElementButton* buttonRoll = m_root->AddChild<ElementButton>();
@@ -179,7 +180,7 @@ void Demo::SetupStandard()
     buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
     buttonRoll->SetUnifiedPosition(UDim2(0.f, 300, 1.f, -20));
     buttonRoll->SetSize(buttonSize);
-    buttonRoll->SetOnMouseReleased(new ActionClass1P<Demo, EButton>(this, &Demo::OnButtonClick, EButton::Roll));
+    buttonRoll->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::Roll));
 
     // Result
     m_textResult = m_root->AddChild<ElementText>();
@@ -244,13 +245,16 @@ void Demo::AddDice(EDiceType type)
 
     sf::Vector2f basePosition = sf::Vector2f(index * 95.f + 220.f, 50.f);
 
-    ElementSpriteAnimated* sprite = m_root->AddChild<ElementSpriteAnimated>();
+    ElementSprite* sprite = m_root->AddChild<ElementSprite>();
     sprite->SetPosition(basePosition);
     sprite->SetScale(0.6f);
     sprite->SetUnifiedOrigin(UDim2::POSITION_CENTER);
-    sprite->ChangeAnimSet(animset);
-    sprite->StartAnimation("idle");
     dice.sprite = sprite;
+
+    SpriteAnimation* animation = GetAnimations()->AddAnimation(sprite);
+    animation->ChangeAnimSet(animset);
+    animation->StartAnimation("idle");
+    dice.animation = animation;
 
     ElementText* resultText = m_root->AddChild<ElementText>();
     resultText->SetFontSize(40);
@@ -266,7 +270,7 @@ void Demo::AddDice(EDiceType type)
     buttonReroll->SetUnifiedOrigin(UDim2::POSITION_CENTER);
     buttonReroll->SetPosition(basePosition + sf::Vector2f(0, 120));
     buttonReroll->SetSize(sf::Vector2f(90, 40));
-    buttonReroll->SetOnMouseReleased(new ActionClass1P<Demo, int>(this, &Demo::OnReroll, index));
+    buttonReroll->SetOnMouseReleased(std::bind(&Demo::OnReroll, this, index));
     buttonReroll->SetVisible(false);
     dice.buttonReroll = buttonReroll;
 
@@ -346,7 +350,7 @@ void Demo::RollSingleDice(int index, bool delay)
     m_currentDices[index].result = GetRandom(min, max);
 
     m_currentDices[index].animationTime = (delay) ? 400 + index * 200 : 400;
-    m_currentDices[index].sprite->StartAnimation("roll");
+    m_currentDices[index].animation->StartAnimation("roll");
     m_currentDices[index].buttonReroll->SetVisible(false);
     m_currentDices[index].resultText->SetText("");
 }
@@ -365,7 +369,7 @@ void Demo::AppUpdate(const DeltaTime& dt)
 
                 if (m_currentDices[i].animationTime <= 0)
                 {
-                    m_currentDices[i].sprite->StartAnimation("idle");
+                    m_currentDices[i].animation->StartAnimation("idle");
                     m_currentDices[i].buttonReroll->SetVisible(true);
                     m_currentDices[i].resultText->SetText(ToString(m_currentDices[i].result));
                 }

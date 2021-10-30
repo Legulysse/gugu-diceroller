@@ -3,8 +3,8 @@
 ////////////////////////////////////////////////////////////////
 // Includes
 
-#include "Gugu/Misc/Application.h"
-#include "Gugu/Misc/EventListener.h"
+#include "Gugu/Core/Application.h"
+#include "Gugu/Events/EventListener.h"
 
 ////////////////////////////////////////////////////////////////
 // Forward Declarations
@@ -15,7 +15,7 @@ namespace gugu
     class ElementText;
     class ElementButton;
     class ElementSprite;
-    class ElementSpriteAnimated;
+    class SpriteAnimation;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -57,7 +57,8 @@ protected:
     struct Dice
     {
         EDiceType type = EDiceType::undefined;
-        gugu::ElementSpriteAnimated* sprite = nullptr;
+        gugu::ElementSprite* sprite = nullptr;
+        gugu::SpriteAnimation* animation = nullptr;
         gugu::ElementText* resultText = nullptr;
         gugu::ElementButton* buttonReroll = nullptr;
         int result = 0;

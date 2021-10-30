@@ -6,8 +6,7 @@ dirBuildScripts = '.'
 import sys, os, collections
 
 sys.path.append(dirEngineBuildScripts)
-import GuguEngine
-import Utility
+import GuguUtility
 
 
 def Main():
@@ -18,19 +17,19 @@ def Main():
     #Menu : Actions
     dictChoices = collections.OrderedDict()
     dictChoices['premake'] = 'Generate Solution'
-    aActions = Utility.PromptMenu("Select Operations", dictChoices, True)
+    aActions = GuguUtility.PromptMenu("Select Operations", dictChoices, True)
 
     #Menu : Compilers
     aCompilers = []
     if any(x in ['premake'] for x in aActions):
         dictChoices = collections.OrderedDict()
-        dictChoices['vs2017'] = 'Visual 2017'
-        aCompilers = Utility.PromptMenu("Select Compilers", dictChoices, True)
+        dictChoices['vs2019'] = 'Visual 2019'
+        aCompilers = GuguUtility.PromptMenu("Select Compilers", dictChoices, True)
     
     #Start Build
     for compiler in aCompilers:
         if 'premake' in aActions:
-            GuguEngine.Premake(dirEngineBuildScripts, 'BuildGame.lua', compiler)
+            GuguUtility.Premake(dirEngineBuildScripts, 'BuildGame.lua', compiler)
 
     os.chdir(dirCurrent)
 

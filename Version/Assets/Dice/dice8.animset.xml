@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<AnimSet ImageSet="">
-	<Animation Name="roll">
-		<Frame Texture="dice8_00000.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00001.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00002.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00003.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00004.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00005.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00006.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00007.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00008.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00009.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00010.png" Duration="0.025" Events="" />
-		<Frame Texture="dice8_00011.png" Duration="0.025" Events="" />
+<AnimSet imageSet="">
+	<Animation name="roll">
+		<Frame texture="dice8_00000.png" duration="0.025" events="" />
+		<Frame texture="dice8_00001.png" duration="0.025" events="" />
+		<Frame texture="dice8_00002.png" duration="0.025" events="" />
+		<Frame texture="dice8_00003.png" duration="0.025" events="" />
+		<Frame texture="dice8_00004.png" duration="0.025" events="" />
+		<Frame texture="dice8_00005.png" duration="0.025" events="" />
+		<Frame texture="dice8_00006.png" duration="0.025" events="" />
+		<Frame texture="dice8_00007.png" duration="0.025" events="" />
+		<Frame texture="dice8_00008.png" duration="0.025" events="" />
+		<Frame texture="dice8_00009.png" duration="0.025" events="" />
+		<Frame texture="dice8_00010.png" duration="0.025" events="" />
+		<Frame texture="dice8_00011.png" duration="0.025" events="" />
 	</Animation>
-	<Animation Name="idle">
-		<Frame Texture="dice8_00012.png" Duration="0.035" Events="" />
+	<Animation name="idle">
+		<Frame texture="dice8_00012.png" duration="0.035" events="" />
 	</Animation>
 </AnimSet>

@@ -1,6 +1,6 @@
 package.path = package.path .. ";../GuguEngine/Tools/Build/?.lua"
 require "PremakeEngine"
-require "PremakeDemos"
+require "PremakeProjects"
 
 
 -- Config
@@ -18,6 +18,7 @@ BuildCfg = {
     DirSourcesEngine    = EnsureSlash(pathDevEngine.."SourcesEngine"),
     DirSourcesSfml      = EnsureSlash(pathDevEngine.."SourcesSFML"),
     DirSourcesPugiXml   = EnsureSlash(pathDevEngine.."SourcesPugiXml"),
+    DirSourcesImGui     = EnsureSlash(pathDevEngine.."SourcesImGui"),
     DirLibEngine        = EnsureSlash(pathSolution.."Build"),
 }
 
@@ -35,5 +36,6 @@ solution "DiceRoller"
     ProjectLibGuguEngine(BuildCfg)
     ProjectLibSFML(BuildCfg)
     ProjectLibPugiXml(BuildCfg)
+    ProjectLibImGui(BuildCfg)
    
     

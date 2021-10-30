@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<AnimSet ImageSet="">
-	<Animation Name="roll">
-		<Frame Texture="dice6_00000.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00001.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00002.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00003.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00004.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00005.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00006.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00007.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00008.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00009.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00010.png" Duration="0.045" Events="" />
-		<Frame Texture="dice6_00011.png" Duration="0.045" Events="" />
+<AnimSet imageSet="">
+	<Animation name="roll">
+		<Frame texture="dice6_00000.png" duration="0.045" events="" />
+		<Frame texture="dice6_00001.png" duration="0.045" events="" />
+		<Frame texture="dice6_00002.png" duration="0.045" events="" />
+		<Frame texture="dice6_00003.png" duration="0.045" events="" />
+		<Frame texture="dice6_00004.png" duration="0.045" events="" />
+		<Frame texture="dice6_00005.png" duration="0.045" events="" />
+		<Frame texture="dice6_00006.png" duration="0.045" events="" />
+		<Frame texture="dice6_00007.png" duration="0.045" events="" />
+		<Frame texture="dice6_00008.png" duration="0.045" events="" />
+		<Frame texture="dice6_00009.png" duration="0.045" events="" />
+		<Frame texture="dice6_00010.png" duration="0.045" events="" />
+		<Frame texture="dice6_00011.png" duration="0.045" events="" />
 	</Animation>
-	<Animation Name="idle">
-		<Frame Texture="dice6_00012.png" Duration="0.045" Events="" />
+	<Animation name="idle">
+		<Frame texture="dice6_00012.png" duration="0.045" events="" />
 	</Animation>
 </AnimSet>

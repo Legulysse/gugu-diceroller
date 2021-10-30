@@ -5,7 +5,7 @@
 #include "Demo.h"
 
 #include "Gugu/Engine.h"
-#include "Gugu/Manager/ManagerResources.h"
+#include "Gugu/Resources/ManagerResources.h"
 
 #if defined(GUGU_ENV_VISUAL )
 
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 
     //--------
 
-    GetEngine()->StartLooping();
+    GetEngine()->RunMainLoop();
     GetEngine()->Release();
 
     return 0;
