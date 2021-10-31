@@ -52,6 +52,19 @@ void Demo::AppStart()
     spriteBackground->SetColor(sf::Color(255,255,255,255));
     m_spriteBackground = spriteBackground;
 
+    // Version
+    ElementText* textVersion = m_root->AddChild<ElementText>();
+    textVersion->SetText("Version 1.0");
+    textVersion->SetFontSize(15);
+    textVersion->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_LEFT);
+    textVersion->SetUnifiedPosition(UDim2::POSITION_BOTTOM_LEFT + sf::Vector2f(5.f, -5.f));
+
+    //ElementText* textWeb = m_root->AddChild<ElementText>();
+    //textWeb->SetText("https://github.com/Legulysse/gugu-diceroller");
+    //textWeb->SetFontSize(15);
+    //textWeb->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_RIGHT);
+    //textWeb->SetUnifiedPosition(UDim2::POSITION_BOTTOM_RIGHT + sf::Vector2f(-5.f, -5.f));
+
     SetupStandard();
 }
 
