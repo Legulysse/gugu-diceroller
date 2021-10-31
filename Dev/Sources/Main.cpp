@@ -32,12 +32,15 @@ int main(int argc, char* argv[])
     //Init engine
     EngineConfig config;
     config.applicationName = "Gugu Dice Roller";
+    config.applicationIcon = "Icon.png";
     config.pathAssets = "Assets";
     config.defaultFont = "Roboto-Regular.ttf"; // Spaceranger  Roboto-Regular  
     config.debugFont = "Roboto-Regular.ttf";
     config.defaultTextureSmooth = true;
     config.windowWidth = 1024;
     config.windowHeight = 520;
+    config.enableVerticalSync = false;
+    config.framerateLimit = 60;
     config.backgroundColor = sf::Color(232, 232, 232);
 
     GetEngine()->Init(config);

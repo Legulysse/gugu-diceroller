@@ -22,6 +22,7 @@
 #include "Gugu/Math/Random.h"
 
 #include <SFML/Window/Clipboard.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 using namespace gugu;
 
@@ -50,6 +51,12 @@ void Demo::AppStart()
         textureBox9->SetSmooth(false);
     }
 
+    Texture* textureButton = GetResources()->GetTexture("Button01.png");
+    if (textureButton)
+    {
+        textureButton->SetSmooth(false);
+    }
+
     // Root
     m_root = GetGameWindow()->GetUINode()->AddChild<Element>();
     m_root->SetUnifiedSize(UDim2(UDim(1.f, 0.f), UDim(1.f, 0.f)));
@@ -62,6 +69,25 @@ void Demo::AppStart()
     spriteBackground->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_RIGHT);
     spriteBackground->SetColor(sf::Color(255,255,255,255));
     m_spriteBackground = spriteBackground;
+
+    // Separator
+    sf::RectangleShape* separatorShape = new sf::RectangleShape;
+    separatorShape->setSize(Vector2f(150.f, 150.f));
+    separatorShape->setFillColor(sf::Color(128, 128, 128, 255));
+
+    ElementSFDrawable* separator = m_root->AddChild<ElementSFDrawable>();
+    separator->SetSFDrawable(separatorShape);
+    separator->SetPosition(0.f, 0.f);
+    separator->SetCallbackOnSizeChanged([separatorShape](ElementSFDrawable* element)
+    {
+        separatorShape->setSize(element->GetSize());
+    });
+    separator->SetUnifiedSize(UDim2(0.f, 180.f, 1.f, 0.f));
+
+    //ElementSprite* separator = m_root->AddChild<ElementSprite>();
+    //separator->SetTexture("Separator.png");
+    //separator->SetPosition(180.f, 0.f);
+    //separator->SetUnifiedSize(UDim2(0.f, 4.f, 1.f, 0.f));
 
     // Version
     ElementText* textVersion = m_root->AddChild<ElementText>();
@@ -99,7 +125,7 @@ void Demo::SetupStandard()
     auto createButton = [&](const std::string& text, const std::string& icon, float iconScale, EButton buttonID)
     {
         ElementButton* button = m_root->AddChild<ElementButton>();
-        button->SetTexture("cadre.png", "cadre2.png");
+        button->LoadFromFile("Button01.xml");
         button->GetElementText()->SetFontSize(fontSize);
         button->SetText(text);
         button->SetTextAlignment(alignmentText, offsetText);
@@ -118,12 +144,6 @@ void Demo::SetupStandard()
     {
         createButton(text, icon, scaleDiceIcon, buttonID);
     };
-
-    // Separator
-    ElementSprite* separator = m_root->AddChild<ElementSprite>();
-    separator->SetTexture("Separator.png");
-    separator->SetPosition(180.f, 0.f);
-    separator->SetUnifiedSize(UDim2(0.f, 4.f, 1.f, 0.f));
 
     // Dice buttons
     createButton("Clear", "clear.png", 0.3f, EButton::Clear);
@@ -158,7 +178,7 @@ void Demo::SetupStandard()
     m_pivotRoll->SetPosition(240.f, 380.f);
 
     ElementButton* buttonRoll = m_pivotRoll->AddChild<ElementButton>();
-    buttonRoll->SetTexture("cadre.png", "cadre2.png");
+    buttonRoll->LoadFromFile("Button01.xml");
     buttonRoll->GetElementText()->SetFontSize(fontSize);
     buttonRoll->SetText("Roll !");
     buttonRoll->SetTextAlignment(alignmentText, offsetText);
@@ -170,7 +190,7 @@ void Demo::SetupStandard()
 
     // Result
     ElementSpriteGroup* boxResult = buttonRoll->AddChild<ElementSpriteGroup>();
-    boxResult->SetColor(sf::Color(255, 255, 255, 50));
+    boxResult->SetColor(sf::Color(255, 255, 255, 30));
     boxResult->LoadFromFile("Box9_02_Black.xml");
     boxResult->SetSize(130.f, 50.f);
     boxResult->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
@@ -265,7 +285,7 @@ void Demo::AddDice(EDiceType type)
     dice.animation = animation;
 
     ElementSpriteGroup* boxResult = pivot->AddChild<ElementSpriteGroup>();
-    boxResult->SetColor(sf::Color(255, 255, 255, 50));
+    boxResult->SetColor(sf::Color(255, 255, 255, 30));
     boxResult->LoadFromFile("Box9_02_Black.xml");
     boxResult->SetSize(80.f, 50.f);
     boxResult->SetPosition(0, 60);
