@@ -62,125 +62,84 @@ void Demo::AppStop()
 
 void Demo::SetupStandard()
 {
-    sf::Vector2f buttonSize = sf::Vector2f(120, 40);
+    sf::Vector2f buttonSize = sf::Vector2f(160, 40);
     sf::Vector2f diceButtonPosition = sf::Vector2f(10, 10);
-    sf::Vector2f diceButtonOffset = sf::Vector2f(0, 45);
+    sf::Vector2f diceButtonOffset = sf::Vector2f(0, buttonSize.y + 5);
 
-    // Clear button
-    ElementButton* buttonClear = m_root->AddChild<ElementButton>();
-    buttonClear->SetTexture("cadre.png", "cadre2.png");
-    buttonClear->GetElementText()->SetFontSize(30);
-    buttonClear->SetText("Clear");
-    buttonClear->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonClear->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonClear->SetSize(buttonSize);
-    buttonClear->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::Clear));
+    uint32 fontSize = 26;
+    UDim2 alignmentText = UDim2::POSITION_TOP_LEFT;
+    Vector2f offsetText = Vector2f(10.f, 0.f);
+    UDim2 positionIcon = UDim2::POSITION_CENTER_RIGHT + Vector2f(-25.f, 0.f);
+    float scaleDiceIcon = 0.2f;
 
+    auto createButton = [&](const std::string& text, const std::string& icon, float iconScale, EButton buttonID)
+    {
+        ElementButton* button = m_root->AddChild<ElementButton>();
+        button->SetTexture("cadre.png", "cadre2.png");
+        button->GetElementText()->SetFontSize(fontSize);
+        button->SetText(text);
+        button->SetTextAlignment(alignmentText, offsetText);
+        button->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
+        button->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
+        button->SetSize(buttonSize);
+        button->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, buttonID));
+
+        if (icon != "")
+        {
+            DecorateButton(button, icon, positionIcon, iconScale);
+        }
+    };
+
+    auto createDiceButton = [&](const std::string& text, const std::string& icon, EButton buttonID)
+    {
+        createButton(text, icon, scaleDiceIcon, buttonID);
+    };
+
+    // Separator
+    ElementSprite* separator = m_root->AddChild<ElementSprite>();
+    separator->SetTexture("Separator.png");
+    separator->SetPosition(180.f, 0.f);
+    separator->SetUnifiedSize(UDim2(0.f, 4.f, 1.f, 0.f));
+
+    // Dice buttons
+    createButton("Clear", "clear.png", 0.3f, EButton::Clear);
     diceButtonPosition += sf::Vector2f(0, 65);
 
-    // Dice 4 button
-    ElementButton* buttonAddDice4 = m_root->AddChild<ElementButton>();
-    buttonAddDice4->SetTexture("cadre.png", "cadre2.png");
-    buttonAddDice4->GetElementText()->SetFontSize(30);
-    buttonAddDice4->SetText("+ 1d4");
-    buttonAddDice4->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonAddDice4->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonAddDice4->SetSize(buttonSize);
-    buttonAddDice4->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice4));
-
+    createDiceButton("+ 1d4", "dice4_00012.png", EButton::AddDice4);
     diceButtonPosition += diceButtonOffset;
 
-    // Dice 6 button
-    ElementButton* buttonAddDice6 = m_root->AddChild<ElementButton>();
-    buttonAddDice6->SetTexture("cadre.png", "cadre2.png");
-    buttonAddDice6->GetElementText()->SetFontSize(30);
-    buttonAddDice6->SetText("+ 1d6");
-    buttonAddDice6->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonAddDice6->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonAddDice6->SetSize(buttonSize);
-    buttonAddDice6->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice6));
-
+    createDiceButton("+ 1d6", "dice6_00012.png", EButton::AddDice6);
     diceButtonPosition += diceButtonOffset;
 
-    // Dice 8 button
-    ElementButton* buttonAddDice8 = m_root->AddChild<ElementButton>();
-    buttonAddDice8->SetTexture("cadre.png", "cadre2.png");
-    buttonAddDice8->GetElementText()->SetFontSize(30);
-    buttonAddDice8->SetText("+ 1d8");
-    buttonAddDice8->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonAddDice8->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonAddDice8->SetSize(buttonSize);
-    buttonAddDice8->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice8));
-
+    createDiceButton("+ 1d8", "dice8_00012.png", EButton::AddDice8);
     diceButtonPosition += diceButtonOffset;
 
-    // Dice 10 button
-    ElementButton* buttonAddDice10 = m_root->AddChild<ElementButton>();
-    buttonAddDice10->SetTexture("cadre.png", "cadre2.png");
-    buttonAddDice10->GetElementText()->SetFontSize(30);
-    buttonAddDice10->SetText("+ 1d10");
-    buttonAddDice10->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonAddDice10->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonAddDice10->SetSize(buttonSize);
-    buttonAddDice10->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice10));
-
+    createDiceButton("+ 1d10", "dice10_00012.png", EButton::AddDice10);
     diceButtonPosition += diceButtonOffset;
 
-    // Dice 12 button
-    ElementButton* buttonAddDice12 = m_root->AddChild<ElementButton>();
-    buttonAddDice12->SetTexture("cadre.png", "cadre2.png");
-    buttonAddDice12->GetElementText()->SetFontSize(30);
-    buttonAddDice12->SetText("+ 1d12");
-    buttonAddDice12->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonAddDice12->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonAddDice12->SetSize(buttonSize);
-    buttonAddDice12->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice12));
-
+    createDiceButton("+ 1d12", "dice12_00012.png", EButton::AddDice12);
     diceButtonPosition += diceButtonOffset;
 
-    // Dice 20 button
-    ElementButton* buttonAddDice20 = m_root->AddChild<ElementButton>();
-    buttonAddDice20->SetTexture("cadre.png", "cadre2.png");
-    buttonAddDice20->GetElementText()->SetFontSize(30);
-    buttonAddDice20->SetText("+ 1d20");
-    buttonAddDice20->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonAddDice20->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonAddDice20->SetSize(buttonSize);
-    buttonAddDice20->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice20));
-
+    createDiceButton("+ 1d20", "dice20_00012.png", EButton::AddDice20);
     diceButtonPosition += diceButtonOffset;
 
-    // Dice 100 button
-    ElementButton* buttonAddDice100 = m_root->AddChild<ElementButton>();
-    buttonAddDice100->SetTexture("cadre.png", "cadre2.png");
-    buttonAddDice100->GetElementText()->SetFontSize(30);
-    buttonAddDice100->SetText("+ 1d100");
-    buttonAddDice100->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonAddDice100->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonAddDice100->SetSize(buttonSize);
-    buttonAddDice100->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::AddDice100));
-
+    createDiceButton("+ 1d100", "dice10_00012.png", EButton::AddDice100);
     diceButtonPosition += sf::Vector2f(0, 65);
 
-    // Remove dice
-    ElementButton* buttonRemoveDice = m_root->AddChild<ElementButton>();
-    buttonRemoveDice->SetTexture("cadre.png", "cadre2.png");
-    buttonRemoveDice->GetElementText()->SetFontSize(30);
-    buttonRemoveDice->SetText("- 1d");
-    buttonRemoveDice->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
-    buttonRemoveDice->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
-    buttonRemoveDice->SetSize(buttonSize);
-    buttonRemoveDice->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::RemoveDice));
+    createDiceButton("- 1d", "", EButton::RemoveDice);
+    diceButtonPosition += diceButtonOffset;
 
     // Roll button
     ElementButton* buttonRoll = m_root->AddChild<ElementButton>();
     buttonRoll->SetTexture("cadre.png", "cadre2.png");
-    buttonRoll->GetElementText()->SetFontSize(30);
+    buttonRoll->GetElementText()->SetFontSize(fontSize);
     buttonRoll->SetText("Roll !");
+    buttonRoll->SetTextAlignment(alignmentText, offsetText);
     buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
     buttonRoll->SetUnifiedPosition(UDim2(0.f, 300, 1.f, -20));
     buttonRoll->SetSize(buttonSize);
     buttonRoll->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::Roll));
+    DecorateButton(buttonRoll, "roll.png", positionIcon, 0.3f);
 
     // Result
     m_textResult = m_root->AddChild<ElementText>();
@@ -188,6 +147,20 @@ void Demo::SetupStandard()
     m_textResult->SetText("");
     m_textResult->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
     m_textResult->SetUnifiedPosition(UDim2(0.f, 300, 1.f, -100));
+}
+
+void Demo::DecorateButton(gugu::Element* button, const std::string& textureID, const UDim2& position, float scale)
+{
+    DecorateButton(button, textureID, position, UDim2::POSITION_CENTER, scale);
+}
+
+void Demo::DecorateButton(gugu::Element* button, const std::string& textureID, const UDim2& position, const UDim2& origin, float scale)
+{
+    ElementSprite* decoration = button->AddChild<ElementSprite>();
+    decoration->SetTexture(textureID);
+    decoration->SetUnifiedOrigin(origin);
+    decoration->SetUnifiedPosition(position);
+    decoration->SetScale(scale);
 }
 
 void Demo::ClearDices()
@@ -204,9 +177,7 @@ void Demo::ClearDices()
 
 void Demo::ClearSingleDice(int index)
 {
-    SafeDelete(m_currentDices[index].sprite);
-    SafeDelete(m_currentDices[index].resultText);
-    SafeDelete(m_currentDices[index].buttonReroll);
+    SafeDelete(m_currentDices[index].pivot);
 }
 
 void Demo::AddDice(EDiceType type)
@@ -243,9 +214,12 @@ void Demo::AddDice(EDiceType type)
         animset = "dice10.animset.xml";
     }
 
-    sf::Vector2f basePosition = sf::Vector2f(index * 95.f + 220.f, 50.f);
+    sf::Vector2f basePosition = sf::Vector2f(index * 95.f + 240.f, 50.f);
 
-    ElementSprite* sprite = m_root->AddChild<ElementSprite>();
+    Element* pivot = m_root->AddChild<Element>();
+    dice.pivot = pivot;
+
+    ElementSprite* sprite = pivot->AddChild<ElementSprite>();
     sprite->SetPosition(basePosition);
     sprite->SetScale(0.6f);
     sprite->SetUnifiedOrigin(UDim2::POSITION_CENTER);
@@ -256,23 +230,22 @@ void Demo::AddDice(EDiceType type)
     animation->StartAnimation("idle");
     dice.animation = animation;
 
-    ElementText* resultText = m_root->AddChild<ElementText>();
+    ElementText* resultText = pivot->AddChild<ElementText>();
     resultText->SetFontSize(40);
     resultText->SetText("");
     resultText->SetPosition(basePosition + sf::Vector2f(0, 70));
     resultText->SetUnifiedOrigin(UDim2::POSITION_CENTER);
     dice.resultText = resultText;
 
-    ElementButton* buttonReroll = m_root->AddChild<ElementButton>();
-    buttonReroll->SetTexture("cadre.png", "cadre2.png");
-    buttonReroll->GetElementText()->SetFontSize(25);
-    buttonReroll->SetText("Reroll");
-    buttonReroll->SetUnifiedOrigin(UDim2::POSITION_CENTER);
-    buttonReroll->SetPosition(basePosition + sf::Vector2f(0, 120));
-    buttonReroll->SetSize(sf::Vector2f(90, 40));
-    buttonReroll->SetOnMouseReleased(std::bind(&Demo::OnReroll, this, index));
-    buttonReroll->SetVisible(false);
-    dice.buttonReroll = buttonReroll;
+    ElementSprite* interaction = pivot->AddChild<ElementSprite>();
+    interaction->SetPosition(basePosition);
+    interaction->SetUnifiedOrigin(UDim2::POSITION_CENTER);
+    interaction->SetSize(70.f, 80.f);
+    interaction->InitInteractions();
+    interaction->AddInteractionFlag(EInteraction::Click);
+    interaction->GetInteractions()->AddCallback(EInteraction::Click, std::bind(&Demo::OnReroll, this, index));
+    DecorateButton(interaction, "reroll.png", UDim2::POSITION_BOTTOM_RIGHT + Vector2f(10.f, 10.f), UDim2::POSITION_BOTTOM_RIGHT, 0.15f);
+    dice.buttonReroll = interaction;
 
     m_currentDices.push_back(dice);
 }
@@ -392,7 +365,7 @@ void Demo::AppUpdate(const DeltaTime& dt)
 
                 if (i > 0)
                 {
-                    dicesResults += " | ";
+                    dicesResults += " ";
                 }
                 
                 dicesResults += ToString(m_currentDices[i].result);
@@ -400,7 +373,7 @@ void Demo::AppUpdate(const DeltaTime& dt)
 
             m_textResult->SetText(ToString(total));
 
-            sf::Clipboard::setString(StringFormat("Roll score: {0} - dices: {1}", total, dicesResults));
+            sf::Clipboard::setString(StringFormat("dices: {1} - score: {0}", total, dicesResults));
 
             // Animate background
             if (!m_animatingBackground)

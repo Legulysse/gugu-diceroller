@@ -5,6 +5,7 @@
 
 #include "Gugu/Core/Application.h"
 #include "Gugu/Events/EventListener.h"
+#include "Gugu/Math/UDim.h"
 
 ////////////////////////////////////////////////////////////////
 // Forward Declarations
@@ -13,7 +14,6 @@ namespace gugu
 {
     class Element;
     class ElementText;
-    class ElementButton;
     class ElementSprite;
     class SpriteAnimation;
 }
@@ -57,10 +57,11 @@ protected:
     struct Dice
     {
         EDiceType type = EDiceType::undefined;
+        gugu::Element* pivot = nullptr;
         gugu::ElementSprite* sprite = nullptr;
         gugu::SpriteAnimation* animation = nullptr;
         gugu::ElementText* resultText = nullptr;
-        gugu::ElementButton* buttonReroll = nullptr;
+        gugu::Element* buttonReroll = nullptr;
         int result = 0;
         int animationTime = 0;
     };
@@ -78,6 +79,8 @@ public:
 protected:
 
     void SetupStandard();
+    void DecorateButton(gugu::Element* button, const std::string& textureID, const gugu::UDim2& position, float scale);
+    void DecorateButton(gugu::Element* button, const std::string& textureID, const gugu::UDim2& position, const gugu::UDim2& origin, float scale);
 
     void ClearDices();
     void PrepareDices(EDiceType type, int count);
