@@ -18,7 +18,8 @@
 #include "Gugu/Element/2D/ElementText.h"
 #include "Gugu/Element/UI/ElementButton.h"
 #include "Gugu/System/SystemUtility.h"
-#include "Gugu/math/Random.h"
+#include "Gugu/Math/MathUtility.h"
+#include "Gugu/Math/Random.h"
 
 #include <SFML/Window/Clipboard.hpp>
 
@@ -153,14 +154,16 @@ void Demo::SetupStandard()
     diceButtonPosition += diceButtonOffset;
 
     // Roll button
-    ElementButton* buttonRoll = m_root->AddChild<ElementButton>();
+    m_pivotRoll = m_root->AddChild<Element>();
+    m_pivotRoll->SetPosition(240.f, 380.f);
+
+    ElementButton* buttonRoll = m_pivotRoll->AddChild<ElementButton>();
     buttonRoll->SetTexture("cadre.png", "cadre2.png");
     buttonRoll->GetElementText()->SetFontSize(fontSize);
     buttonRoll->SetText("Roll !");
     buttonRoll->SetTextAlignment(alignmentText, offsetText);
     buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_LEFT);
-    buttonRoll->SetPosition(240.f, 380.f);
-    //buttonRoll->SetPosition(240.f, 330.f);
+    //buttonRoll->SetPosition(0.f, -50.f);
     buttonRoll->SetSize(buttonSize);
     buttonRoll->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::Roll));
     DecorateButton(buttonRoll, "roll.png", positionIcon, 0.3f);
@@ -247,13 +250,11 @@ void Demo::AddDice(EDiceType type)
         animset = "dice10.animset.xml";
     }
 
-    sf::Vector2f basePosition = sf::Vector2f(index * 95.f + 240.f, 50.f);
-
     Element* pivot = m_root->AddChild<Element>();
+    pivot->SetPosition(sf::Vector2f(index * 95.f + 240.f, 50.f));
     dice.pivot = pivot;
 
     ElementSprite* sprite = pivot->AddChild<ElementSprite>();
-    sprite->SetPosition(basePosition);
     sprite->SetScale(0.6f);
     sprite->SetUnifiedOrigin(UDim2::POSITION_CENTER);
     dice.sprite = sprite;
@@ -267,7 +268,7 @@ void Demo::AddDice(EDiceType type)
     boxResult->SetColor(sf::Color(255, 255, 255, 50));
     boxResult->LoadFromFile("Box9_02_Black.xml");
     boxResult->SetSize(80.f, 50.f);
-    boxResult->SetPosition(basePosition + sf::Vector2f(0, 60));
+    boxResult->SetPosition(0, 60);
     boxResult->SetUnifiedOrigin(UDim2::POSITION_TOP_CENTER);
 
     ElementText* resultText = boxResult->AddChild<ElementText>();
@@ -278,7 +279,6 @@ void Demo::AddDice(EDiceType type)
     dice.resultText = resultText;
 
     ElementSprite* interaction = pivot->AddChild<ElementSprite>();
-    interaction->SetPosition(basePosition);
     interaction->SetUnifiedOrigin(UDim2::POSITION_CENTER);
     interaction->SetSize(70.f, 80.f);
     interaction->InitInteractions();
@@ -370,6 +370,37 @@ void Demo::RollSingleDice(int index, bool delay)
 
 void Demo::AppUpdate(const DeltaTime& dt)
 {
+    bool moveDices = true;
+    if (moveDices)
+    {
+        Vector2f basePosition = Vector2f(240.f, 50.f);
+        float rowOffset = 180.f;
+        float diceOffset = 95.f;
+
+        int test = GetGameWindow()->GetSize().x;
+        int nbDicesPerRow = ((int)GetGameWindow()->GetSize().x - (int)basePosition.x + (int)(diceOffset / 2)) / (int)diceOffset;
+        nbDicesPerRow = Max(1, nbDicesPerRow);
+
+        int nbRows = (m_currentDices.size() / nbDicesPerRow) + (m_currentDices.size() % nbDicesPerRow != 0 ? 1 : 0);
+
+        for (size_t i = 0; i < m_currentDices.size(); ++i)
+        {
+            Vector2f position = basePosition + Vector2f((i % nbDicesPerRow) * diceOffset, (i / nbDicesPerRow) * rowOffset);
+            m_currentDices[i].pivot->SetPosition(position);
+        }
+
+        if (nbRows <= 1)
+        {
+            Vector2f basePositionRoll = Vector2f(240.f, 380.f);
+            m_pivotRoll->SetPosition(basePositionRoll);
+        }
+        else
+        {
+            Vector2f basePositionRoll = Vector2f(240.f, 120.f);
+            m_pivotRoll->SetPosition(basePositionRoll + Vector2f(0.f, nbRows * rowOffset));
+        }
+    }
+
     if (m_rolling)
     {
         bool stillRolling = false;

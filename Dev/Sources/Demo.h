@@ -99,6 +99,7 @@ protected:
 
     gugu::Element* m_root = nullptr;
     gugu::ElementSprite* m_spriteBackground = nullptr;
+    gugu::Element* m_pivotRoll = nullptr;
     gugu::ElementText* m_textResult = nullptr;
 
     std::vector<Dice> m_currentDices;
