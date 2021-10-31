@@ -21,9 +21,9 @@ namespace gugu
 ////////////////////////////////////////////////////////////////
 // File Declarations
 
-namespace demoproject {
+namespace project {
     
-class Demo : public gugu::Application, public gugu::EventListener
+class DiceRoller : public gugu::Application, public gugu::EventListener
 {
 protected:
 
@@ -68,8 +68,8 @@ protected:
 
 public:
 
-    Demo();
-    virtual ~Demo();
+    DiceRoller();
+    virtual ~DiceRoller();
 
     virtual void AppStart() override;
     virtual void AppStop() override;
@@ -110,4 +110,4 @@ protected:
     int m_animationTime = 0;
 };
 
-}   //namespace demoproject
+}   //namespace project

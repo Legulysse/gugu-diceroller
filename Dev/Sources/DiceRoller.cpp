@@ -2,7 +2,7 @@
 // Header
 
 #include "Gugu/Common.h"
-#include "Demo.h"
+#include "DiceRoller.h"
 
 ////////////////////////////////////////////////////////////////
 // Includes
@@ -29,18 +29,18 @@ using namespace gugu;
 ////////////////////////////////////////////////////////////////
 // File Implementation
 
-namespace demoproject {
+namespace project {
     
-Demo::Demo()
+DiceRoller::DiceRoller()
 : m_root(nullptr)
 {
 }
 
-Demo::~Demo()
+DiceRoller::~DiceRoller()
 {
 }
 
-void Demo::AppStart()
+void DiceRoller::AppStart()
 {
     RegisterHandlerEvents(GetGameWindow());
 
@@ -105,12 +105,12 @@ void Demo::AppStart()
     SetupStandard();
 }
 
-void Demo::AppStop()
+void DiceRoller::AppStop()
 {
     SafeDelete(m_root);
 }
 
-void Demo::SetupStandard()
+void DiceRoller::SetupStandard()
 {
     sf::Vector2f buttonSize = sf::Vector2f(160, 40);
     sf::Vector2f diceButtonPosition = sf::Vector2f(10, 10);
@@ -132,7 +132,7 @@ void Demo::SetupStandard()
         button->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
         button->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
         button->SetSize(buttonSize);
-        button->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, buttonID));
+        button->SetOnMouseReleased(std::bind(&DiceRoller::OnButtonClick, this, buttonID));
 
         if (icon != "")
         {
@@ -185,7 +185,7 @@ void Demo::SetupStandard()
     buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_LEFT);
     //buttonRoll->SetPosition(0.f, -50.f);
     buttonRoll->SetSize(buttonSize);
-    buttonRoll->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::Roll));
+    buttonRoll->SetOnMouseReleased(std::bind(&DiceRoller::OnButtonClick, this, EButton::Roll));
     DecorateButton(buttonRoll, "roll.png", positionIcon, 0.3f);
 
     // Result
@@ -205,12 +205,12 @@ void Demo::SetupStandard()
     m_textResult->SetUnifiedPosition(UDim2::POSITION_TOP_CENTER);
 }
 
-void Demo::DecorateButton(gugu::Element* button, const std::string& textureID, const UDim2& position, float scale)
+void DiceRoller::DecorateButton(gugu::Element* button, const std::string& textureID, const UDim2& position, float scale)
 {
     DecorateButton(button, textureID, position, UDim2::POSITION_CENTER, scale);
 }
 
-void Demo::DecorateButton(gugu::Element* button, const std::string& textureID, const UDim2& position, const UDim2& origin, float scale)
+void DiceRoller::DecorateButton(gugu::Element* button, const std::string& textureID, const UDim2& position, const UDim2& origin, float scale)
 {
     ElementSprite* decoration = button->AddChild<ElementSprite>();
     decoration->SetTexture(textureID);
@@ -219,7 +219,7 @@ void Demo::DecorateButton(gugu::Element* button, const std::string& textureID, c
     decoration->SetScale(scale);
 }
 
-void Demo::ClearDices()
+void DiceRoller::ClearDices()
 {
     for (int i = 0; i < (int)m_currentDices.size(); ++i)
     {
@@ -231,12 +231,12 @@ void Demo::ClearDices()
     m_textResult->SetText("");
 }
 
-void Demo::ClearSingleDice(int index)
+void DiceRoller::ClearSingleDice(int index)
 {
     SafeDelete(m_currentDices[index].pivot);
 }
 
-void Demo::AddDice(EDiceType type)
+void DiceRoller::AddDice(EDiceType type)
 {
     int index = m_currentDices.size();
 
@@ -303,14 +303,14 @@ void Demo::AddDice(EDiceType type)
     interaction->SetSize(70.f, 80.f);
     interaction->InitInteractions();
     interaction->AddInteractionFlag(EInteraction::Click);
-    interaction->GetInteractions()->AddCallback(EInteraction::Click, std::bind(&Demo::OnReroll, this, index));
+    interaction->GetInteractions()->AddCallback(EInteraction::Click, std::bind(&DiceRoller::OnReroll, this, index));
     DecorateButton(interaction, "reroll.png", UDim2::POSITION_BOTTOM_RIGHT + Vector2f(10.f, 10.f), UDim2::POSITION_BOTTOM_RIGHT, 0.15f);
     dice.buttonReroll = interaction;
 
     m_currentDices.push_back(dice);
 }
 
-void Demo::RemoveDice()
+void DiceRoller::RemoveDice()
 {
     if (!m_currentDices.empty())
     {
@@ -321,7 +321,7 @@ void Demo::RemoveDice()
     }
 }
 
-void Demo::PrepareDices(EDiceType type, int count)
+void DiceRoller::PrepareDices(EDiceType type, int count)
 {
     ClearDices();
 
@@ -331,7 +331,7 @@ void Demo::PrepareDices(EDiceType type, int count)
     }
 }
 
-void Demo::RollAllDices()
+void DiceRoller::RollAllDices()
 {
     for (int i = 0; i < (int)m_currentDices.size(); ++i)
     {
@@ -342,7 +342,7 @@ void Demo::RollAllDices()
     m_rolling = true;
 }
 
-void Demo::RerollDice(int index)
+void DiceRoller::RerollDice(int index)
 {
     RollSingleDice(index, false);
 
@@ -350,7 +350,7 @@ void Demo::RerollDice(int index)
     m_rolling = true;
 }
 
-void Demo::RollSingleDice(int index, bool delay)
+void DiceRoller::RollSingleDice(int index, bool delay)
 {
     int min = 1;
     int max = 6;
@@ -388,7 +388,7 @@ void Demo::RollSingleDice(int index, bool delay)
     m_currentDices[index].resultText->SetText("");
 }
 
-void Demo::AppUpdate(const DeltaTime& dt)
+void DiceRoller::AppUpdate(const DeltaTime& dt)
 {
     bool moveDices = true;
     if (moveDices)
@@ -504,7 +504,7 @@ void Demo::AppUpdate(const DeltaTime& dt)
     }
 }
 
-void Demo::OnButtonClick(EButton button)
+void DiceRoller::OnButtonClick(EButton button)
 {
     if (button == EButton::Roll)
     {
@@ -548,9 +548,9 @@ void Demo::OnButtonClick(EButton button)
     }
 }
 
-void Demo::OnReroll(int index)
+void DiceRoller::OnReroll(int index)
 {
     RerollDice(index);
 }
 
-}   //namespace demoproject
+}   //namespace project

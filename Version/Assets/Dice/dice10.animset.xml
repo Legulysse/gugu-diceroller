@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AnimSet imageSet="">
+<AnimSet>
 	<Animation name="roll">
 		<Frame texture="dice10_00000.png" duration="0.025" events="" />
 		<Frame texture="dice10_00001.png" duration="0.025" events="" />

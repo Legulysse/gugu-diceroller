@@ -2,7 +2,7 @@
 // Includes
 
 #include "Gugu/Common.h"
-#include "Demo.h"
+#include "DiceRoller.h"
 
 #include "Gugu/Engine.h"
 #include "Gugu/Resources/ManagerResources.h"
@@ -15,7 +15,7 @@
 
 #endif
 
-using namespace demoproject;
+using namespace project;
 using namespace gugu;
 
 ////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
     config.applicationName = "Gugu Dice Roller";
     config.applicationIcon = "Icon.png";
     config.pathAssets = "Assets";
-    config.defaultFont = "Roboto-Regular.ttf"; // Spaceranger  Roboto-Regular  
+    config.defaultFont = "Roboto-Regular.ttf";
     config.debugFont = "Roboto-Regular.ttf";
     config.defaultTextureSmooth = true;
     config.windowWidth = 1024;
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 
     //--------
 
-    GetEngine()->SetApplication(new Demo);
+    GetEngine()->SetApplication(new DiceRoller);
     GetResources()->PreloadAll();
 
     //--------
