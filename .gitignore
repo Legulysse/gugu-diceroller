@@ -1,5 +1,5 @@
-Dev/Build/*
-Tools/GuguEditor/*
-Version/Build_*
-Version/DiceRoller*
+**/*Dev/Build/*
+**/*Version/Build_*
+**/*Version/DiceRoller*
 *.log
+imgui.ini
