@@ -8,9 +8,12 @@
 // Includes
 
 #include "Gugu/Window/Window.h"
+#include "Gugu/Resources/ManagerResources.h"
+#include "Gugu/Resources/Texture.h"
 #include "Gugu/Animation/ManagerAnimations.h"
 #include "Gugu/Animation/SpriteAnimation.h"
 #include "Gugu/Element/2D/ElementSprite.h"
+#include "Gugu/Element/2D/ElementSpriteGroup.h"
 #include "Gugu/Element/2D/ElementSFDrawable.h"
 #include "Gugu/Element/2D/ElementText.h"
 #include "Gugu/Element/UI/ElementButton.h"
@@ -39,6 +42,13 @@ void Demo::AppStart()
 {
     RegisterHandlerEvents(GetGameWindow());
 
+    // Setup textures if needed
+    Texture* textureBox9 = GetResources()->GetTexture("Box9_Default_Black.png");
+    if (textureBox9)
+    {
+        textureBox9->SetSmooth(false);
+    }
+
     // Root
     m_root = GetGameWindow()->GetUINode()->AddChild<Element>();
     m_root->SetUnifiedSize(UDim2(UDim(1.f, 0.f), UDim(1.f, 0.f)));
@@ -47,7 +57,7 @@ void Demo::AppStart()
     ElementSprite* spriteBackground = m_root->AddChild<ElementSprite>();
     spriteBackground->SetTexture("SuchRoll.png");
     spriteBackground->SetUnifiedPosition(UDim2::POSITION_BOTTOM_RIGHT + sf::Vector2f(100.f, 20.f));
-    spriteBackground->SetScale(0.5f);
+    spriteBackground->SetScale(0.4f);
     spriteBackground->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_RIGHT);
     spriteBackground->SetColor(sf::Color(255,255,255,255));
     m_spriteBackground = spriteBackground;
@@ -148,18 +158,28 @@ void Demo::SetupStandard()
     buttonRoll->GetElementText()->SetFontSize(fontSize);
     buttonRoll->SetText("Roll !");
     buttonRoll->SetTextAlignment(alignmentText, offsetText);
-    buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
-    buttonRoll->SetUnifiedPosition(UDim2(0.f, 300, 1.f, -20));
+    buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_LEFT);
+    buttonRoll->SetPosition(240.f, 380.f);
+    //buttonRoll->SetPosition(240.f, 330.f);
     buttonRoll->SetSize(buttonSize);
     buttonRoll->SetOnMouseReleased(std::bind(&Demo::OnButtonClick, this, EButton::Roll));
     DecorateButton(buttonRoll, "roll.png", positionIcon, 0.3f);
 
     // Result
-    m_textResult = m_root->AddChild<ElementText>();
+    ElementSpriteGroup* boxResult = buttonRoll->AddChild<ElementSpriteGroup>();
+    boxResult->SetColor(sf::Color(255, 255, 255, 50));
+    boxResult->LoadFromFile("Box9_02_Black.xml");
+    boxResult->SetSize(130.f, 50.f);
+    boxResult->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
+    boxResult->SetUnifiedPosition(UDim2::POSITION_TOP_CENTER + Vector2f(0.f, -15.f));
+    //boxResult->SetUnifiedOrigin(UDim2::POSITION_TOP_CENTER);
+    //boxResult->SetUnifiedPosition(UDim2::POSITION_BOTTOM_CENTER + Vector2f(0.f, 15.f));
+
+    m_textResult = boxResult->AddChild<ElementText>();
     m_textResult->SetFontSize(40);
     m_textResult->SetText("");
-    m_textResult->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
-    m_textResult->SetUnifiedPosition(UDim2(0.f, 300, 1.f, -100));
+    m_textResult->SetUnifiedOrigin(UDim2::POSITION_TOP_CENTER);
+    m_textResult->SetUnifiedPosition(UDim2::POSITION_TOP_CENTER);
 }
 
 void Demo::DecorateButton(gugu::Element* button, const std::string& textureID, const UDim2& position, float scale)
@@ -243,11 +263,18 @@ void Demo::AddDice(EDiceType type)
     animation->StartAnimation("idle");
     dice.animation = animation;
 
-    ElementText* resultText = pivot->AddChild<ElementText>();
+    ElementSpriteGroup* boxResult = pivot->AddChild<ElementSpriteGroup>();
+    boxResult->SetColor(sf::Color(255, 255, 255, 50));
+    boxResult->LoadFromFile("Box9_02_Black.xml");
+    boxResult->SetSize(80.f, 50.f);
+    boxResult->SetPosition(basePosition + sf::Vector2f(0, 60));
+    boxResult->SetUnifiedOrigin(UDim2::POSITION_TOP_CENTER);
+
+    ElementText* resultText = boxResult->AddChild<ElementText>();
     resultText->SetFontSize(40);
     resultText->SetText("");
-    resultText->SetPosition(basePosition + sf::Vector2f(0, 70));
-    resultText->SetUnifiedOrigin(UDim2::POSITION_CENTER);
+    resultText->SetUnifiedOrigin(UDim2::POSITION_TOP_CENTER);
+    resultText->SetUnifiedPosition(UDim2::POSITION_TOP_CENTER);
     dice.resultText = resultText;
 
     ElementSprite* interaction = pivot->AddChild<ElementSprite>();
