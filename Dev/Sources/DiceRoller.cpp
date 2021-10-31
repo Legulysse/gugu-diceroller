@@ -91,7 +91,7 @@ void DiceRoller::AppStart()
 
     // Version
     ElementText* textVersion = m_root->AddChild<ElementText>();
-    textVersion->SetText("Version 1.0");
+    textVersion->SetText("Version 1.1");
     textVersion->SetFontSize(15);
     textVersion->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_LEFT);
     textVersion->SetUnifiedPosition(UDim2::POSITION_BOTTOM_LEFT + sf::Vector2f(5.f, -5.f));
