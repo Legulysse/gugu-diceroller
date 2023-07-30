@@ -17,6 +17,7 @@
 #include "Gugu/Element/2D/ElementSFDrawable.h"
 #include "Gugu/Element/2D/ElementText.h"
 #include "Gugu/Element/UI/ElementButton.h"
+#include "Gugu/Events/ElementEventHandler.h"
 #include "Gugu/System/SystemUtility.h"
 #include "Gugu/Math/MathUtility.h"
 #include "Gugu/Math/Random.h"
@@ -42,7 +43,7 @@ DiceRoller::~DiceRoller()
 
 void DiceRoller::AppStart()
 {
-    RegisterHandlerEvents(GetGameWindow());
+    RegisterEventHandler(GetGameWindow());
 
     // Setup textures if needed
     Texture* textureBox9 = GetResources()->GetTexture("Box9_Default_Black.png");
@@ -301,9 +302,8 @@ void DiceRoller::AddDice(EDiceType type)
     ElementSprite* interaction = pivot->AddChild<ElementSprite>();
     interaction->SetUnifiedOrigin(UDim2::POSITION_CENTER);
     interaction->SetSize(70.f, 80.f);
-    interaction->InitInteractions();
-    interaction->AddInteractionFlag(EInteraction::Click);
-    interaction->GetInteractions()->AddCallback(EInteraction::Click, std::bind(&DiceRoller::OnReroll, this, index));
+    interaction->GetEvents()->AddCallback(EInteractionEvent::MousePressed, std::bind(&DiceRoller::OnReroll, this, index));
+
     DecorateButton(interaction, "reroll.png", UDim2::POSITION_BOTTOM_RIGHT + Vector2f(10.f, 10.f), UDim2::POSITION_BOTTOM_RIGHT, 0.15f);
     dice.buttonReroll = interaction;
 
