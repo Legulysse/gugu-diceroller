@@ -83,17 +83,17 @@ protected:
     void DecorateButton(gugu::Element* button, const std::string& textureID, const gugu::UDim2& position, const gugu::UDim2& origin, float scale);
 
     void ClearDices();
-    void PrepareDices(EDiceType type, int count);
+    void PrepareDices(EDiceType type, size_t count);
     void AddDice(EDiceType type);
     void RemoveDice();
-    void ClearSingleDice(int index);
+    void ClearSingleDice(size_t index);
 
     void RollAllDices();
-    void RerollDice(int index);
-    void RollSingleDice(int index, bool delay);
+    void RerollDice(size_t index);
+    void RollSingleDice(size_t index, bool delay);
 
     void OnButtonClick(EButton button);
-    void OnReroll(int index);
+    void OnReroll(size_t index);
 
 protected:
 

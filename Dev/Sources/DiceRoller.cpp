@@ -222,7 +222,7 @@ void DiceRoller::DecorateButton(gugu::Element* button, const std::string& textur
 
 void DiceRoller::ClearDices()
 {
-    for (int i = 0; i < (int)m_currentDices.size(); ++i)
+    for (size_t i = 0; i < m_currentDices.size(); ++i)
     {
         ClearSingleDice(i);
     }
@@ -232,14 +232,14 @@ void DiceRoller::ClearDices()
     m_textResult->SetText("");
 }
 
-void DiceRoller::ClearSingleDice(int index)
+void DiceRoller::ClearSingleDice(size_t index)
 {
     SafeDelete(m_currentDices[index].pivot);
 }
 
 void DiceRoller::AddDice(EDiceType type)
 {
-    int index = m_currentDices.size();
+    size_t index = m_currentDices.size();
 
     Dice dice;
     dice.type = type;
@@ -272,7 +272,7 @@ void DiceRoller::AddDice(EDiceType type)
     }
 
     Element* pivot = m_root->AddChild<Element>();
-    pivot->SetPosition(sf::Vector2f(index * 95.f + 240.f, 50.f));
+    pivot->SetPosition(sf::Vector2f(((int)index) * 95.f + 240.f, 50.f));
     dice.pivot = pivot;
 
     ElementSprite* sprite = pivot->AddChild<ElementSprite>();
@@ -314,18 +314,18 @@ void DiceRoller::RemoveDice()
 {
     if (!m_currentDices.empty())
     {
-        int index = m_currentDices.size() - 1;
+        size_t index = m_currentDices.size() - 1;
         ClearSingleDice(index);
 
         StdVectorRemoveAt(m_currentDices, index);
     }
 }
 
-void DiceRoller::PrepareDices(EDiceType type, int count)
+void DiceRoller::PrepareDices(EDiceType type, size_t count)
 {
     ClearDices();
 
-    for (int i = 0; i < count; ++i)
+    for (size_t i = 0; i < count; ++i)
     {
         AddDice(type);
     }
@@ -333,7 +333,7 @@ void DiceRoller::PrepareDices(EDiceType type, int count)
 
 void DiceRoller::RollAllDices()
 {
-    for (int i = 0; i < (int)m_currentDices.size(); ++i)
+    for (size_t i = 0; i < m_currentDices.size(); ++i)
     {
         RollSingleDice(i, true);
     }
@@ -342,7 +342,7 @@ void DiceRoller::RollAllDices()
     m_rolling = true;
 }
 
-void DiceRoller::RerollDice(int index)
+void DiceRoller::RerollDice(size_t index)
 {
     RollSingleDice(index, false);
 
@@ -350,7 +350,7 @@ void DiceRoller::RerollDice(int index)
     m_rolling = true;
 }
 
-void DiceRoller::RollSingleDice(int index, bool delay)
+void DiceRoller::RollSingleDice(size_t index, bool delay)
 {
     int min = 1;
     int max = 6;
@@ -382,7 +382,7 @@ void DiceRoller::RollSingleDice(int index, bool delay)
 
     m_currentDices[index].result = GetRandom(min, max);
 
-    m_currentDices[index].animationTime = (delay) ? 400 + index * 200 : 400;
+    m_currentDices[index].animationTime = (delay) ? 400 + (int)index * 200 : 400;
     m_currentDices[index].animation->StartAnimation("roll");
     m_currentDices[index].buttonReroll->SetVisible(false);
     m_currentDices[index].resultText->SetText("");
@@ -401,7 +401,7 @@ void DiceRoller::AppUpdate(const DeltaTime& dt)
         int nbDicesPerRow = ((int)GetGameWindow()->GetSize().x - (int)basePosition.x + (int)(diceOffset / 2)) / (int)diceOffset;
         nbDicesPerRow = Max(1, nbDicesPerRow);
 
-        int nbRows = (m_currentDices.size() / nbDicesPerRow) + (m_currentDices.size() % nbDicesPerRow != 0 ? 1 : 0);
+        int nbRows = ((int)m_currentDices.size() / nbDicesPerRow) + ((int)m_currentDices.size() % nbDicesPerRow != 0 ? 1 : 0);
 
         for (size_t i = 0; i < m_currentDices.size(); ++i)
         {
@@ -425,7 +425,7 @@ void DiceRoller::AppUpdate(const DeltaTime& dt)
     {
         bool stillRolling = false;
 
-        for (int i = 0; i < (int)m_currentDices.size(); ++i)
+        for (size_t i = 0; i < m_currentDices.size(); ++i)
         {
             if (m_currentDices[i].animationTime > 0)
             {
@@ -450,7 +450,7 @@ void DiceRoller::AppUpdate(const DeltaTime& dt)
         {
             int total = 0;
             std::string dicesResults = "";
-            for (int i = 0; i < (int)m_currentDices.size(); ++i)
+            for (size_t i = 0; i < m_currentDices.size(); ++i)
             {
                 total += m_currentDices[i].result;
 
@@ -548,7 +548,7 @@ void DiceRoller::OnButtonClick(EButton button)
     }
 }
 
-void DiceRoller::OnReroll(int index)
+void DiceRoller::OnReroll(size_t index)
 {
     RerollDice(index);
 }
