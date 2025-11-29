@@ -120,18 +120,19 @@ void DiceRoller::SetupStandard()
     sf::Vector2f diceButtonOffset = sf::Vector2f(0, buttonSize.y + 5);
 
     uint32 fontSize = 26;
-    UDim2 alignmentText = UDim2::POSITION_TOP_LEFT;
-    Vector2f offsetText = Vector2f(10.f, 0.f);
+    UDim2 textOrigin = UDim2::POSITION_TOP_LEFT;
+    UDim2 textPosition = UDim2::POSITION_TOP_LEFT + Vector2f(10.f, 0.f);
     UDim2 positionIcon = UDim2::POSITION_CENTER_RIGHT + Vector2f(-25.f, 0.f);
     float scaleDiceIcon = 0.2f;
 
     auto createButton = [&](const std::string& text, const std::string& icon, float iconScale, EButton buttonID)
     {
         ElementButton* button = m_root->AddChild<ElementButton>();
-        button->LoadFromFile("Button01.xml");
-        button->GetElementText()->SetFontSize(fontSize);
+        button->LoadFromWidget("Button_01.widget.xml");
         button->SetText(text);
-        button->SetTextAlignment(alignmentText, offsetText);
+        button->GetTextComponent()->SetFontSize(fontSize);
+        button->GetTextComponent()->SetUnifiedOrigin(textOrigin);
+        button->GetTextComponent()->SetUnifiedPosition(textPosition);
         button->SetUnifiedOrigin(UDim2::POSITION_TOP_LEFT);
         button->SetUnifiedPosition(UDim2::POSITION_TOP_LEFT + diceButtonPosition);
         button->SetSize(buttonSize);
@@ -181,10 +182,11 @@ void DiceRoller::SetupStandard()
     m_pivotRoll->SetPosition(240.f, 380.f);
 
     ElementButton* buttonRoll = m_pivotRoll->AddChild<ElementButton>();
-    buttonRoll->LoadFromFile("Button01.xml");
-    buttonRoll->GetElementText()->SetFontSize(fontSize);
+    buttonRoll->LoadFromWidget("Button_01.widget.xml");
     buttonRoll->SetText("Roll !");
-    buttonRoll->SetTextAlignment(alignmentText, offsetText);
+    buttonRoll->GetTextComponent()->SetFontSize(fontSize);
+    buttonRoll->GetTextComponent()->SetUnifiedOrigin(textOrigin);
+    buttonRoll->GetTextComponent()->SetUnifiedPosition(textPosition);
     buttonRoll->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_LEFT);
     //buttonRoll->SetPosition(0.f, -50.f);
     buttonRoll->SetSize(buttonSize);
