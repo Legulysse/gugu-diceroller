@@ -195,8 +195,8 @@ void DiceRoller::SetupStandard()
 
     // Result
     ElementSpriteGroup* boxResult = buttonRoll->AddChild<ElementSpriteGroup>();
-    boxResult->SetColor(sf::Color(255, 255, 255, 30));
-    boxResult->LoadFromFile("Box9_02_Black.xml");
+    boxResult->LoadFromWidget("Box9_Default_Black_02.widget.xml");
+    boxResult->UpdateItemsColor(sf::Color(255, 255, 255, 30));
     boxResult->SetSize(130.f, 50.f);
     boxResult->SetUnifiedOrigin(UDim2::POSITION_BOTTOM_CENTER);
     boxResult->SetUnifiedPosition(UDim2::POSITION_TOP_CENTER + Vector2f(0.f, -15.f));
@@ -290,8 +290,8 @@ void DiceRoller::AddDice(EDiceType type)
     dice.animation = animation;
 
     ElementSpriteGroup* boxResult = pivot->AddChild<ElementSpriteGroup>();
-    boxResult->SetColor(sf::Color(255, 255, 255, 30));
-    boxResult->LoadFromFile("Box9_02_Black.xml");
+    boxResult->LoadFromWidget("Box9_Default_Black_02.widget.xml");
+    boxResult->UpdateItemsColor(sf::Color(255, 255, 255, 30));
     boxResult->SetSize(80.f, 50.f);
     boxResult->SetPosition(0, 60);
     boxResult->SetUnifiedOrigin(UDim2::POSITION_TOP_CENTER);
