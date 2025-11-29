@@ -62,7 +62,7 @@ void DiceRoller::AppStart()
 
     // Root
     m_root = GetGameWindow()->GetUINode()->AddChild<Element>();
-    m_root->SetUnifiedSize(UDim2(UDim(1.f, 0.f), UDim(1.f, 0.f)));
+    m_root->SetUnifiedSize(UDim2(1.f, 1.f));
 
     // Background
     ElementSprite* spriteBackground = m_root->AddChild<ElementSprite>();
@@ -85,7 +85,7 @@ void DiceRoller::AppStart()
     {
         separatorShape->setSize(element->GetSize());
     });
-    separator->SetUnifiedSize(UDim2(0.f, 180.f, 1.f, 0.f));
+    separator->SetUnifiedSize(UDim2(Vector2f(0.f, 1.f), Vector2f(180.f, 0.f)));
 
     //ElementSprite* separator = m_root->AddChild<ElementSprite>();
     //separator->SetTexture("Separator.png");
