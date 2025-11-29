@@ -382,7 +382,7 @@ void DiceRoller::RollSingleDice(size_t index, bool delay)
 
     m_currentDices[index].result = GetRandom(min, max);
 
-    m_currentDices[index].animationTime = (delay) ? 400 + (int)index * 200 : 400;
+    m_currentDices[index].animationTime = (delay) ? 0.4f + (int)index * 0.2f : 0.4f;
     m_currentDices[index].animation->StartAnimation("roll");
     m_currentDices[index].buttonReroll->SetVisible(false);
     m_currentDices[index].resultText->SetText("");
@@ -427,11 +427,11 @@ void DiceRoller::AppUpdate(const DeltaTime& dt)
 
         for (size_t i = 0; i < m_currentDices.size(); ++i)
         {
-            if (m_currentDices[i].animationTime > 0)
+            if (m_currentDices[i].animationTime > 0.f)
             {
-                m_currentDices[i].animationTime -= dt.ms();
+                m_currentDices[i].animationTime -= dt.s();
 
-                if (m_currentDices[i].animationTime <= 0)
+                if (m_currentDices[i].animationTime <= 0.f)
                 {
                     m_currentDices[i].animation->StartAnimation("idle");
                     m_currentDices[i].buttonReroll->SetVisible(true);
@@ -471,25 +471,25 @@ void DiceRoller::AppUpdate(const DeltaTime& dt)
             {
                 m_animatingBackground = true;
                 m_animationStep = 0;
-                m_animationTime = 0;
+                m_animationTime = 0.f;
             }
         }
     }
 
     if (m_animatingBackground)
     {
-        m_animationTime += dt.ms();
+        m_animationTime += dt.s();
 
-        int warmupTime = 300;
-        int blinkTime = 250;
+        float warmupTime = 0.3f;
+        float blinkTime = 0.25f;
 
-        if (m_animationStep == 0 && m_animationTime >= warmupTime)
+        if (m_animationStep == 0 && ApproxSuperiorOrEqual(m_animationTime, warmupTime, math::Epsilon3))
         {
             m_spriteBackground->SetTexture("SuchRoll2.png");
             ++m_animationStep;
         }
 
-        if (m_animationStep == 1 && m_animationTime >= warmupTime + blinkTime)
+        if (m_animationStep == 1 && ApproxSuperiorOrEqual(m_animationTime, warmupTime + blinkTime, math::Epsilon3))
         {
             m_spriteBackground->SetTexture("SuchRoll.png");
             ++m_animationStep;
@@ -499,7 +499,7 @@ void DiceRoller::AppUpdate(const DeltaTime& dt)
         {
             m_animatingBackground = false;
             m_animationStep = 0;
-            m_animationTime = 0;
+            m_animationTime = 0.f;
         }
     }
 }

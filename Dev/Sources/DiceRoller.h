@@ -63,7 +63,7 @@ protected:
         gugu::ElementText* resultText = nullptr;
         gugu::Element* buttonReroll = nullptr;
         int result = 0;
-        int animationTime = 0;
+        float animationTime = 0.f;
     };
 
 public:
@@ -107,7 +107,7 @@ protected:
 
     bool m_animatingBackground = false;
     int m_animationStep = 0;
-    int m_animationTime = 0;
+    float m_animationTime = 0.f;
 };
 
 }   //namespace project
