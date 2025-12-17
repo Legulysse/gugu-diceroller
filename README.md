@@ -12,10 +12,11 @@ I couldn't find one online that was enjoyable to use and decided to make my own.
 It features all standard die types, and you can use ctrl+v after a roll to paste your results.  
 
 You can download the latest release here :  
-https://github.com/Legulysse/gugu-diceroller/releases/download/v1.1/DiceRoller-1_1.zip  
+https://github.com/Legulysse/gugu-diceroller/releases/download/v1.2.0/GuguDiceRoller-1_2_0.zip  
   
 ![DiceRoller](/Docs/gugu-dices.gif)
 
 ## Dependencies
 
 - [gugu::Engine](https://github.com/Legulysse/gugu-engine)
+
