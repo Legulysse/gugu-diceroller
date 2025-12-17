@@ -1,5 +1,27 @@
-**/*Dev/Build/*
-**/*Version/Build_*
-**/*Version/DiceRoller*
-*.log
+#### Engine Ignores ####
+
+## Build Directories
+
+**/__pycache__/
+**/Dev/Build/
+**/[Bb]uild_*/
+
+
+## User Directories
+
+**/User/
+
+
+## User Files
+
+*.pro.user
+*.aps
+Trace_*.json
 imgui.ini
+*.log
+
+
+#### Project Ignores ####
+
+build/*
+build-release/*
